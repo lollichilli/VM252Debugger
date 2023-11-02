@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class ButtonsContainer extends JPanel
 {
-    private static final int OUR_DEFAULT_WIDTH = 500;
-    private static final int OUR_DEFAULT_HEIGHT = 500;
+    private static final int OUR_DEFAULT_WIDTH = 300;
+    private static final int OUR_DEFAULT_HEIGHT = 800;
 
     private JPanel myPanel;
 
