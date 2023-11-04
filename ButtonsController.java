@@ -37,13 +37,13 @@ public class ButtonsController extends JPanel {
         // Create buttons
         //
 
+        JButton quitButton = new JButton("Quit");
         JButton runButton = new JButton("Run");
+        JButton helpButton = new JButton("Help");
         JButton pauseButton = new JButton("Pause");
         JButton resumeButton = new JButton("Resume");
         JButton increaseButton = new JButton("Increase");
         JButton decreaseButton = new JButton("Decrease");
-        JButton quitButton = new JButton("Quit");
-        JButton helpButton = new JButton("Help");
 
         setPanel(new JPanel());
         getPanel().setLayout(new GridLayout(1, 7, 10, 0));
@@ -51,13 +51,14 @@ public class ButtonsController extends JPanel {
         //
         // Add the Buttons to the panel
         //
+
+        getPanel().add(quitButton);
         getPanel().add(runButton);
+        getPanel().add(helpButton);
         getPanel().add(pauseButton);
         getPanel().add(resumeButton);
         getPanel().add(increaseButton);
         getPanel().add(decreaseButton);
-        getPanel().add(quitButton);
-        getPanel().add(helpButton);
 
         add(getPanel());
 
