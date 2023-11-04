@@ -46,7 +46,7 @@ public class ButtonsController extends JPanel {
         JButton decreaseButton = new JButton("Decrease");
 
         setPanel(new JPanel());
-        getPanel().setLayout(new GridLayout(1, 7));
+        getPanel().setLayout(new GridLayout(1, 7, 10, 0));
 
         //
         // Add the Buttons to the panel
