@@ -53,7 +53,8 @@ public class MachineViewContainer extends JPanel
         MemoryBytesViewAndController memoryView = new MemoryBytesViewAndController(initialModel);
 
         setPanel(new JPanel());
-        getPanel().setBackground(new Color(255, 255, 0));
+
+        //getPanel().setBackground(new Color(255, 255, 0));
 
         //
         // add panels to container
@@ -61,8 +62,12 @@ public class MachineViewContainer extends JPanel
 
         getPanel().add(statusView);
         getPanel().add(memoryView);
+        
+        
 
         add(getPanel());
+        
+        getPanel().setBounds(20, 10, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
 
     }
 }
