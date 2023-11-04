@@ -2,8 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ButtonsContainer extends JPanel
-{
+public class ButtonsContainer extends JPanel {
     private static final int OUR_DEFAULT_WIDTH = 300;
     private static final int OUR_DEFAULT_HEIGHT = 800;
 
@@ -13,8 +12,7 @@ public class ButtonsContainer extends JPanel
     // Accessors
     //
 
-    private JPanel getPanel()
-    {
+    private JPanel getPanel() {
         return myPanel;
     }
 
@@ -22,8 +20,7 @@ public class ButtonsContainer extends JPanel
     // Mutators
     //
 
-    private void setPanel(JPanel other)
-    {
+    private void setPanel(JPanel other) {
         myPanel = other;
     }
 
@@ -31,13 +28,11 @@ public class ButtonsContainer extends JPanel
     // Constructors
     //
 
-    public ButtonsContainer()
-    {
+    public ButtonsContainer() {
         this(null);
     }
 
-    public ButtonsContainer(ObservableVM252 initialModel)
-    {
+    public ButtonsContainer(ObservableVM252 initialModel) {
 
         //
         // Create button controller
@@ -46,7 +41,7 @@ public class ButtonsContainer extends JPanel
         ButtonsController buttons = new ButtonsController(initialModel);
 
         setPanel(new JPanel());
-        getPanel().setBackground(new Color(255, 255, 0));
+        // getPanel().setBackground(new Color(255, 255, 0));
         getPanel().setSize(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
         getPanel().add(buttons);
 
