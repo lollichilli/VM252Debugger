@@ -5,12 +5,13 @@ import javax.swing.JList;
 
 public class ContentsView extends JPanel implements SimpleObserver
 {
-    private static final int OUR_DEFAULT_WIDTH = 600;
-    private static final int OUR_DEFAULT_HEIGHT = 300;
+    private static final int OUR_DEFAULT_WIDTH = 500;
+    private static final int OUR_DEFAULT_HEIGHT = 200;
 
     private JPanel myPanel;
     private ObservableVM252 myModel;
     private String [] myContents;
+    private JTextArea contentsContainer;
 
     //
     // Accessors
@@ -30,6 +31,12 @@ public class ContentsView extends JPanel implements SimpleObserver
     {
         return myContents;
     }
+
+    private JTextArea getContentsContainer()
+    {
+        return contentsContainer;
+    }
+
 
     //
     // Mutators
@@ -57,7 +64,12 @@ public class ContentsView extends JPanel implements SimpleObserver
 
     }
 
-    //
+    private void setContentsContainer(JTextArea other)
+    {
+        contentsContainer = other;
+    }
+
+     //
     // Constructors
     //
 
@@ -68,18 +80,28 @@ public class ContentsView extends JPanel implements SimpleObserver
 
     public ContentsView(ObservableVM252 initialModel)
     {
-        setSize(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        setModel(initialModel);
+        setContents(getModel().getShowContents());
 
         setPanel(new JPanel());
-        getPanel().setBackground(new Color(255, 255, 0));
 
+        setContentsContainer(new JTextArea("Welcome" + "\n", 10, 1));
+        getContentsContainer().setBounds(130, 35, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        getContentsContainer().setBackground(new Color(160, 160, 160));
+        getContentsContainer().setForeground(Color.WHITE);
+        getContentsContainer().setLineWrap(true);
+        getContentsContainer().setEditable(false);
 
+        JScrollPane scroll = new JScrollPane(getContentsContainer());
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setBounds(100, 100, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+
+        setLayout(null);
+        add(scroll);
         //
         // Initially display the model's display contents
         //
-
-        setModel(initialModel);
-        setContents(getModel().getShowContents());
 
     }
 
