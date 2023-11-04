@@ -52,13 +52,13 @@ public class ButtonsController extends JPanel {
         // Add the Buttons to the panel
         //
 
-        getPanel().add(quitButton);
         getPanel().add(runButton);
-        getPanel().add(helpButton);
         getPanel().add(pauseButton);
         getPanel().add(resumeButton);
         getPanel().add(increaseButton);
         getPanel().add(decreaseButton);
+        getPanel().add(helpButton);
+        getPanel().add(quitButton);
 
         add(getPanel());
 
