@@ -6,7 +6,7 @@ public class MachineViewAndController extends JPanel implements SimpleObserver
 {
     private static final int OUR_DEFAULT_FRAME_WIDTH = 200;
     private static final int OUR_DEFAULT_FRAME_HEIGHT = 200;
-    private static final int OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH = 5;
+    private static final int OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH = 10;
 
     private JPanel myPanel;
     private ObservableVM252 myModel;
@@ -70,22 +70,49 @@ public class MachineViewAndController extends JPanel implements SimpleObserver
 
     public MachineViewAndController(ObservableVM252 initialModel)
     {
-        setModel(initialModel);
-        setLabel(new JLabel(""));
 
+        setSize(OUR_DEFAULT_FRAME_WIDTH,OUR_DEFAULT_FRAME_HEIGHT);
+        setModel(initialModel);
+
+
+        JLabel accLabel = new JLabel("ACC", JLabel.LEFT);
+        JLabel progcountLabel = new JLabel("Program Counter", JLabel.LEFT);
+        JLabel nextinstrLabel = new JLabel("Next Instruction", JLabel.LEFT);
+        
+
+        
+        JTextField acc = new JTextField("ACC",OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        JTextField progcount = new JTextField("Program Counter",OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        JTextField nextinstr = new JTextField("Next Instruction",OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        
+        
         //
         // Create a panel to display the state of the machine model
         //
 
         setPanel(new JPanel());
-        getPanel().setBackground(new Color(255, 255, 0));
-        getPanel().add(getLabel());
-
+        getPanel().setLayout(new GridLayout(3, 2));
+        
+        
+        
+     
         //
         // Add the panel to the container
         //
 
+        getPanel().add(accLabel);
+        getPanel().add(acc);
+        getPanel().add(progcountLabel);
+        getPanel().add(progcount);
+        getPanel().add(nextinstrLabel);
+        getPanel().add(nextinstr);
+        
+
         add(getPanel());
+        
+
+        setLayout(new GridLayout(1, 1));
+        
     }
 
     @Override
