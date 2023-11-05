@@ -2,8 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MachineViewAndController extends JPanel implements SimpleObserver
-{
+public class MachineViewAndController extends JPanel implements SimpleObserver {
     private static final int OUR_DEFAULT_FRAME_WIDTH = 200;
     private static final int OUR_DEFAULT_FRAME_HEIGHT = 200;
     private static final int OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH = 10;
@@ -16,18 +15,15 @@ public class MachineViewAndController extends JPanel implements SimpleObserver
     // Accessors
     //
 
-    private JPanel getPanel()
-    {
+    private JPanel getPanel() {
         return myPanel;
     }
 
-    private ObservableVM252 getModel()
-    {
+    private ObservableVM252 getModel() {
         return myModel;
     }
 
-    private JLabel getLabel()
-    {
+    private JLabel getLabel() {
         return myLabel;
     }
 
@@ -35,13 +31,11 @@ public class MachineViewAndController extends JPanel implements SimpleObserver
     // Mutators
     //
 
-    private void setPanel(JPanel other)
-    {
+    private void setPanel(JPanel other) {
         myPanel = other;
     }
 
-    private void setModel(ObservableVM252 other)
-    {
+    private void setModel(ObservableVM252 other) {
 
         if (getModel() != null)
             getModel().detach(this);
@@ -53,49 +47,38 @@ public class MachineViewAndController extends JPanel implements SimpleObserver
 
     }
 
-    private void setLabel(JLabel other)
-    {
+    private void setLabel(JLabel other) {
         myLabel = other;
     }
-
 
     //
     // Constructors
     //
 
-    public MachineViewAndController()
-    {
+    public MachineViewAndController() {
         this(null);
     }
 
-    public MachineViewAndController(ObservableVM252 initialModel)
-    {
+    public MachineViewAndController(ObservableVM252 initialModel) {
 
-        setSize(OUR_DEFAULT_FRAME_WIDTH,OUR_DEFAULT_FRAME_HEIGHT);
+        setSize(OUR_DEFAULT_FRAME_WIDTH, OUR_DEFAULT_FRAME_HEIGHT);
         setModel(initialModel);
-
 
         JLabel accLabel = new JLabel("ACC", JLabel.LEFT);
         JLabel progcountLabel = new JLabel("Program Counter", JLabel.LEFT);
         JLabel nextinstrLabel = new JLabel("Next Instruction", JLabel.LEFT);
-        
 
-        
-        JTextField acc = new JTextField("ACC",OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
-        JTextField progcount = new JTextField("Program Counter",OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
-        JTextField nextinstr = new JTextField("Next Instruction",OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
-        
-        
+        JTextField acc = new JTextField("ACC", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        JTextField progcount = new JTextField("Program Counter", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        JTextField nextinstr = new JTextField("Next Instruction", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+
         //
         // Create a panel to display the state of the machine model
         //
 
         setPanel(new JPanel());
         getPanel().setLayout(new GridLayout(3, 2));
-        
-        
-        
-     
+
         //
         // Add the panel to the container
         //
@@ -106,21 +89,18 @@ public class MachineViewAndController extends JPanel implements SimpleObserver
         getPanel().add(progcount);
         getPanel().add(nextinstrLabel);
         getPanel().add(nextinstr);
-        
 
         add(getPanel());
-        
 
         setLayout(new GridLayout(1, 1));
-        
+
     }
 
     @Override
-    public void update()
-    {
+    public void update() {
         //
-        // Update to display the current status of the machine (ACC, PC, Next Instructions)
+        // Update to display the current status of the machine (ACC, PC, Next
+        // Instructions)
         //
     }
 }
-

@@ -35,11 +35,11 @@ public class ButtonsController extends JPanel {
 
         // Create icons with an ImageObserver
         ImageIcon runIcon = new ImageIcon(
-                new ImageIcon("Icons/Run.png").getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT));
+                new ImageIcon("Icons/Run.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         ImageIcon helpIcon = new ImageIcon(
-                new ImageIcon("Icons/Help.png").getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT));
+                new ImageIcon("Icons/Help.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         ImageIcon quitIcon = new ImageIcon(
-                new ImageIcon("Icons/Quit.png").getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT));
+                new ImageIcon("Icons/Quit.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
         //
         // Create buttons
@@ -88,6 +88,9 @@ public class ButtonsController extends JPanel {
         // Make the JToolBar so that it can't be dragged
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
+
+        // Set the preferred size of the JToolBar
+        toolbar.setPreferredSize(new Dimension(450, 40));
 
         // Add the JToolBar to the panel
         getPanel().add(toolbar, BorderLayout.NORTH);
