@@ -1,12 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.JList;
 
 public class ContentsView extends JPanel implements SimpleObserver
 {
-    private static final int OUR_DEFAULT_WIDTH = 500;
-    private static final int OUR_DEFAULT_HEIGHT = 200;
+    private static final int OUR_DEFAULT_WIDTH = 300;
+    private static final int OUR_DEFAULT_HEIGHT = 150;
 
     private JPanel myPanel;
     private ObservableVM252 myModel;
@@ -86,7 +85,7 @@ public class ContentsView extends JPanel implements SimpleObserver
         setPanel(new JPanel());
 
         setContentsContainer(new JTextArea("Welcome" + "\n", 10, 1));
-        getContentsContainer().setBounds(130, 35, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        getContentsContainer().setBounds(800, 800, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
         getContentsContainer().setBackground(new Color(160, 160, 160));
         getContentsContainer().setForeground(Color.WHITE);
         getContentsContainer().setLineWrap(true);

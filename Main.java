@@ -24,6 +24,8 @@ public class Main
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         frame.setVisible(true);
 
+                        
+
                     }
 
             );
@@ -75,13 +77,13 @@ class ProgramFrame extends JFrame
 
         getPanel().setLayout(null);
 
-        buttonsContainer.setBounds(0, 0, 800, 200);
+        buttonsContainer.setBounds(0, 0, 800, 100);
         getPanel().add(buttonsContainer);
 
-        machineViewContainer.setBounds(0, 400, 800, 300);
+        machineViewContainer.setBounds(0, 100, 300, 100);
         getPanel().add(machineViewContainer);
 
-        contentsView.setBounds(0, 200, 800, 400);
+        contentsView.setBounds(0, 200, 400, 250);
         getPanel().add(contentsView);
 
         getPanel().setBackground(new Color(173, 173, 215));
