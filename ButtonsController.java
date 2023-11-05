@@ -33,32 +33,64 @@ public class ButtonsController extends JPanel {
     public ButtonsController(ObservableVM252 initialModel) {
         setModel(initialModel);
 
+        // Create icons with an ImageObserver
+        ImageIcon runIcon = new ImageIcon(
+                new ImageIcon("Icons/Run.png").getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT));
+        ImageIcon helpIcon = new ImageIcon(
+                new ImageIcon("Icons/Help.png").getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT));
+        ImageIcon quitIcon = new ImageIcon(
+                new ImageIcon("Icons/Quit.png").getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT));
+
         //
         // Create buttons
         //
 
-        JButton quitButton = new JButton("Quit");
-        JButton runButton = new JButton("Run");
-        JButton helpButton = new JButton("Help");
+        JButton quitButton = new JButton(quitIcon);
+        JButton runButton = new JButton(runIcon);
+        JButton helpButton = new JButton(helpIcon);
         JButton pauseButton = new JButton("Pause");
         JButton resumeButton = new JButton("Resume");
         JButton increaseButton = new JButton("Increase");
         JButton decreaseButton = new JButton("Decrease");
 
+        runButton.setPreferredSize(new Dimension(32, 32));
+        helpButton.setPreferredSize(new Dimension(32, 32));
+        quitButton.setPreferredSize(new Dimension(32, 32));
+
+        //
+        // Set the preferred size of the icon buttons to match the button size
+        //
         setPanel(new JPanel());
         getPanel().setLayout(new GridLayout(1, 7, 10, 0));
 
         //
-        // Add the Buttons to the panel
+        // Create a JToolBar with horizontal orientation
         //
+        JToolBar toolbar = new JToolBar(JToolBar.HORIZONTAL);
 
-        getPanel().add(runButton);
-        getPanel().add(pauseButton);
-        getPanel().add(resumeButton);
-        getPanel().add(increaseButton);
-        getPanel().add(decreaseButton);
-        getPanel().add(helpButton);
-        getPanel().add(quitButton);
+        //
+        // Add buttons to the JToolBar with separators for spacing
+        //
+        toolbar.add(runButton);
+        toolbar.addSeparator();
+        toolbar.add(pauseButton);
+        toolbar.addSeparator();
+        toolbar.add(resumeButton);
+        toolbar.addSeparator();
+        toolbar.add(increaseButton);
+        toolbar.addSeparator();
+        toolbar.add(decreaseButton);
+        toolbar.addSeparator();
+        toolbar.add(quitButton);
+        toolbar.addSeparator();
+        toolbar.add(helpButton);
+
+        // Make the JToolBar so that it can't be dragged
+        toolbar.setFloatable(false);
+        toolbar.setRollover(true);
+
+        // Add the JToolBar to the panel
+        getPanel().add(toolbar, BorderLayout.NORTH);
 
         add(getPanel());
 
