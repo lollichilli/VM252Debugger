@@ -63,11 +63,12 @@ public class MachineViewContainer extends JPanel
         getPanel().add(statusView);
         getPanel().add(memoryView);
         
-        
+        // Set the layout manager of the frame to BorderLayout
+        setLayout(new BorderLayout());
 
-        add(getPanel());
-        
-        getPanel().setBounds(20, 10, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        // Add the panel to the frame with a BorderLayout constraint (e.g., WEST for left)
+        add(getPanel(), BorderLayout.CENTER);
+               
 
     }
 }
