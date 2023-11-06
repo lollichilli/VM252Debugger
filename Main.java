@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.File;
+import vm252utilities.VM252Utilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Main
 {
@@ -9,25 +12,55 @@ public class Main
         EventQueue.invokeLater(
             () ->
                 {
-
-
                     //
-                    // Create program frame
+                    // Set file choosing option
                     //
 
-                        ProgramFrame frame = new ProgramFrame();
-
-                    //
-                    // Set frame's visibility and closing behavior
-                    //
-
-                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        frame.setVisible(true);
+                    ObjectFileChooser File = new ObjectFileChooser();
+                    File.ObjectFileChooser();
 
                     }
 
             );
 
+    }
+}
+
+class ObjectFileChooser extends JFileChooser
+{
+    public void ObjectFileChooser()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Opcode Files", "vm252obj");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setCurrentDirectory(new File("./ObjectFilesForTesting"));
+
+        int response = fileChooser.showOpenDialog(null);
+
+        if (response == JFileChooser.APPROVE_OPTION)
+        {
+            String file = fileChooser.getSelectedFile().getPath();
+            byte [] program = VM252Utilities.readObjectCodeFromObjectFile(file);
+
+            //
+            // Create program frame
+            //
+
+            ProgramFrame frame = new ProgramFrame();
+
+            //
+            // Set frame's visibility and closing behavior
+            //
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        }
+
+        else
+        {
+            System.exit(0);
+        }
     }
 }
 
@@ -83,8 +116,6 @@ class ProgramFrame extends JFrame
 
         contentsView.setBounds(0, 200, 800, 400);
         getPanel().add(contentsView);
-
-        getPanel().setBackground(new Color(173, 173, 215));
 
         add(getPanel());
     }
