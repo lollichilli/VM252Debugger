@@ -84,7 +84,20 @@ public class ButtonsController extends JPanel {
         toolbar.add(quitButton);
         toolbar.addSeparator();
         toolbar.add(helpButton);
-
+        //
+        // listeners
+        //
+        helpButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String[] helpContents = { "ba MA = Set a breakpoint at address MA",
+                        "help = Print this help message",
+                        "n = Execute next machine instruction",
+                        "q = Quit",
+                        "r = Run machine until error occurs or stop instruction is executed"
+                };
+                getModel().setShowContents(helpContents);
+            }
+        });
         // Make the JToolBar so that it can't be dragged
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
