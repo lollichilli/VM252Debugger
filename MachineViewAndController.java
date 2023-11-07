@@ -67,17 +67,19 @@ public class MachineViewAndController extends JPanel implements SimpleObserver {
         JLabel accLabel = new JLabel("ACC", JLabel.LEFT);
         JLabel progcountLabel = new JLabel("Program Counter", JLabel.LEFT);
         JLabel nextinstrLabel = new JLabel("Next Instruction", JLabel.LEFT);
+        JLabel inputLabel = new JLabel("Input", JLabel.LEFT);
 
         JTextField acc = new JTextField("ACC", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
         JTextField progcount = new JTextField("Program Counter", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
         JTextField nextinstr = new JTextField("Next Instruction", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        JTextField input = new JTextField("Input", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
 
         //
         // Create a panel to display the state of the machine model
         //
 
         setPanel(new JPanel());
-        getPanel().setLayout(new GridLayout(3, 2));
+        getPanel().setLayout(new GridLayout(4, 2));
 
         //
         // Add the panel to the container
@@ -89,6 +91,8 @@ public class MachineViewAndController extends JPanel implements SimpleObserver {
         getPanel().add(progcount);
         getPanel().add(nextinstrLabel);
         getPanel().add(nextinstr);
+        getPanel().add(inputLabel);
+        getPanel().add(input);
 
         add(getPanel());
 

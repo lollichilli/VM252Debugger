@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class MemoryBytesViewAndController extends JPanel implements SimpleObserver
 {
@@ -78,9 +79,26 @@ public class MemoryBytesViewAndController extends JPanel implements SimpleObserv
         getPanel().setBackground(new Color(255, 255, 0));
         getPanel().add(getLabel());
 
-        //
-        // Add the panel to the container
-        //
+        // Create the data for the table
+        int rowCount = 410;
+        int columnCount = 20;
+        int emptycolumn = 0;
+
+        // Create a DefaultTableModel with data and column names
+        DefaultTableModel model = new DefaultTableModel(rowCount,emptycolumn );
+
+        // Set column names
+        for (int columnnumber = 0; columnnumber < columnCount; columnnumber++) {
+            model.addColumn(Integer.valueOf(columnnumber+1));
+        }
+
+        // Create a JTable with the model
+        JTable table = new JTable(model);
+
+        // Add the JTable to a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
+
 
         add(getPanel());
     }

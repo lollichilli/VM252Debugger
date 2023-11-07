@@ -41,6 +41,14 @@ public class ButtonsController extends JPanel {
         ImageIcon quitIcon = new ImageIcon(
                 new ImageIcon("Icons/Quit.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
+
+
+        //
+        // Create labels
+        //
+
+        JTextField textFieldba = new JTextField("",10);
+
         //
         // Create buttons
         //
@@ -58,6 +66,13 @@ public class ButtonsController extends JPanel {
         quitButton.setPreferredSize(new Dimension(32, 32));
 
         //
+        // Create labels
+        //
+
+        JLabel baJLabel = new JLabel("ba:");
+        
+
+        //
         // Set the preferred size of the icon buttons to match the button size
         //
         setPanel(new JPanel());
@@ -71,6 +86,9 @@ public class ButtonsController extends JPanel {
         //
         // Add buttons to the JToolBar with separators for spacing
         //
+
+        toolbar.add(baJLabel);
+        toolbar.add(textFieldba);
         toolbar.add(runButton);
         toolbar.addSeparator();
         toolbar.add(pauseButton);
