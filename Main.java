@@ -1,9 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.File;
-import vm252utilities.VM252Utilities;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Main
 {
@@ -12,12 +9,20 @@ public class Main
         EventQueue.invokeLater(
             () ->
                 {
+
+
                     //
-                    // Set file choosing option
+                    // Create program frame
                     //
 
-                    ObjectFileChooser File = new ObjectFileChooser();
-                    File.ObjectFileChooser();
+                        ProgramFrame frame = new ProgramFrame();
+
+                    //
+                    // Set frame's visibility and closing behavior
+                    //
+
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setVisible(true);
 
                         
 
@@ -25,44 +30,6 @@ public class Main
 
             );
 
-    }
-}
-
-class ObjectFileChooser extends JFileChooser
-{
-    public void ObjectFileChooser()
-    {
-        JFileChooser fileChooser = new JFileChooser();
-
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Opcode Files", "vm252obj");
-        fileChooser.setFileFilter(filter);
-        fileChooser.setCurrentDirectory(new File("./ObjectFilesForTesting"));
-
-        int response = fileChooser.showOpenDialog(null);
-
-        if (response == JFileChooser.APPROVE_OPTION)
-        {
-            String file = fileChooser.getSelectedFile().getPath();
-            byte [] program = VM252Utilities.readObjectCodeFromObjectFile(file);
-
-            //
-            // Create program frame
-            //
-
-            ProgramFrame frame = new ProgramFrame();
-
-            //
-            // Set frame's visibility and closing behavior
-            //
-
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        }
-
-        else
-        {
-            System.exit(0);
-        }
     }
 }
 
@@ -105,6 +72,7 @@ class ProgramFrame extends JFrame
         ButtonsContainer buttonsContainer = new ButtonsContainer(model);
         MachineViewContainer machineViewContainer = new MachineViewContainer(model);
         ContentsView contentsView = new ContentsView(model);
+        //MemoryBytesViewAndController memoryBytesViewAndController = new MemoryBytesViewAndController(model);
 
         setPanel(new JPanel());
 
@@ -113,11 +81,16 @@ class ProgramFrame extends JFrame
         buttonsContainer.setBounds(0, 0, 800, 100);
         getPanel().add(buttonsContainer);
 
-        machineViewContainer.setBounds(0, 100, 300, 100);
+        machineViewContainer.setBounds(0, 100, 500, 300);
         getPanel().add(machineViewContainer);
 
-        contentsView.setBounds(0, 200, 400, 250);
+        contentsView.setBounds(0, 400, 400, 250);
         getPanel().add(contentsView);
+
+        //memoryBytesViewAndController.setBounds(0, 600, 400, 250);
+        //getPanel().add(memoryBytesViewAndController);
+
+        //getPanel().setBackground(new Color(173, 173, 215));
 
         add(getPanel());
     }
