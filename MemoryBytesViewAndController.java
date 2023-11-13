@@ -105,7 +105,7 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
         for (int row = 0; row < 410; ++row)
         {
             myTable.setValueAt("Addr" + rowAddr, row, 0);
-            // rowAddr = rowAddr + 20;
+            rowAddr = rowAddr + 20;
         }
 
         // Add the JTable to a JScrollPane

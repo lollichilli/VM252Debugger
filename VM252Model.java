@@ -13,6 +13,10 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
     private final byte [ ] myMemory
         = new byte [ VM252ArchitectureSpecifications.MEMORY_SIZE_IN_BYTES ];
     private StoppedCategory myStoppedStatus;
+    private short myInput;
+    private boolean inputReady = false;
+    private int myExecutionSpeed;
+    private boolean myPauseStatus;
     private String [] myContents;
 
     //
@@ -55,6 +59,26 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
 
         return myStoppedStatus;
 
+    }
+
+    public short getInputValue()
+    {
+        return myInput;
+    }
+
+    public boolean getInputReady()
+    {
+        return inputReady;
+    }
+
+    public int getExecutionSpeed()
+    {
+        return myExecutionSpeed;
+    }
+
+    public boolean getPauseStatus()
+    {
+        return myPauseStatus;
     }
 
     public String [] getShowContents()
@@ -125,10 +149,37 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
 
     }
 
+    public void setInputValue(short other)
+    {
+        myInput = other;
+        announceChange();
+    }
+
+    public void setInputReady(boolean other)
+    {
+        inputReady = other;
+    }
+
+    public void setExecutionSpeed(int other)
+    {
+        myExecutionSpeed = other;
+    }
+
+    public void setPauseStatus(boolean other)
+    {
+        myPauseStatus = other;
+    }
+
     public void setShowContents(String [] other)
     {
         myContents = other;
         announceChange();
+    }
+
+    public void resetDisplayContents()
+    {
+        String [] contents = {""};
+        myContents = contents;
     }
 
     //
@@ -142,6 +193,8 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         setAccumulator(0);
         setProgramCounter(0);
         setShowContents(welcomeContents);
+        setExecutionSpeed(500);
+        setPauseStatus(false);
         setStoppedStatus(StoppedCategory.notStopped);
 
     }

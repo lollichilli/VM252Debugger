@@ -10,6 +10,10 @@ public class MachineViewAndController extends JPanel implements Observer {
     private JPanel myPanel;
     private VM252Model myModel;
     private JLabel myLabel;
+    private JTextField myAccTextField;
+    private JTextField myPcTextField;
+    private JTextField myNextInstructionTextField;
+    private JTextField myInputTextField;
 
     //
     // Accessors
@@ -25,6 +29,18 @@ public class MachineViewAndController extends JPanel implements Observer {
 
     private JLabel getLabel() {
         return myLabel;
+    }
+
+    private JTextField getAccTextField() {
+        return myAccTextField;
+    }
+
+    private JTextField getPcTextField() {
+        return myPcTextField;
+    }
+
+    private JTextField getInputTextField() {
+        return myInputTextField;
     }
 
     //
@@ -51,6 +67,18 @@ public class MachineViewAndController extends JPanel implements Observer {
         myLabel = other;
     }
 
+    private void setAccTextField(JTextField other) {
+        myAccTextField = other;
+    }
+
+    private void setPcTextField(JTextField other) {
+        myPcTextField = other;
+    }
+
+    private void setInputTextField(JTextField other) {
+        myInputTextField = other;
+    }
+
     //
     // Constructors
     //
@@ -64,15 +92,69 @@ public class MachineViewAndController extends JPanel implements Observer {
         setSize(OUR_DEFAULT_FRAME_WIDTH, OUR_DEFAULT_FRAME_HEIGHT);
         setModel(initialModel);
 
-        JLabel accLabel = new JLabel("ACC", JLabel.LEFT);
-        JLabel progcountLabel = new JLabel("Program Counter", JLabel.LEFT);
         JLabel nextinstrLabel = new JLabel("Next Instruction", JLabel.LEFT);
-        JLabel inputLabel = new JLabel("Input", JLabel.LEFT);
-
-        JTextField acc = new JTextField("ACC", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
-        JTextField progcount = new JTextField("Program Counter", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
         JTextField nextinstr = new JTextField("Next Instruction", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
-        JTextField input = new JTextField("Input", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+
+        JLabel accLabel = new JLabel("ACC");
+        setAccTextField(new JTextField("" + getModel().accumulator()));
+        ActionListener setAccumulator = new ActionListener(){
+	        public void actionPerformed(ActionEvent accChange){
+                try
+                {
+                    getModel().resetDisplayContents();
+                    getModel().setAccumulator(Short.valueOf(getAccTextField().getText()));
+                    getModel().setShowContents(new String[] {"Set ACC value to " + getAccTextField().getText()});
+                }catch(NumberFormatException err){
+                    getModel().setShowContents(new String [] {"Not a valid input. Input for ACC Value must be a number"});
+                    getModel().resetDisplayContents();
+                }
+
+          }};
+        getAccTextField().addActionListener(setAccumulator);
+
+        JLabel counterLabel = new JLabel("PC");
+        setPcTextField(new JTextField("" + getModel().programCounter()));
+        ActionListener setProgramCounter = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getModel().resetDisplayContents();
+                try{
+                    if (Short.valueOf(getPcTextField().getText()) >= ((short)8192) || Short.valueOf(getPcTextField().getText()) < ((short) 0))
+                    {
+                        getModel().setShowContents(new String[] {"No address " + getPcTextField().getText()});
+                        getModel().resetDisplayContents();
+                        getModel().setProgramCounter(getModel().programCounter());
+                    } else
+                    {
+                        getModel().setProgramCounter(Short.valueOf(getPcTextField().getText()));
+                        getModel().setStoppedStatus(VM252Model.StoppedCategory.notStopped);
+                        getModel().setShowContents(new String[] {"Set PC value to " + getPcTextField().getText()});
+                        getModel().resetDisplayContents();
+                        // show next instruction here
+                    }
+                } catch(NumberFormatException err){
+                        getModel().setShowContents(new String [] {"Not a valid input. Input for PC Value must be a number"});
+                        getModel().resetDisplayContents();
+                    }
+            }
+        };
+        getPcTextField().addActionListener(setProgramCounter);
+
+        JLabel inputLabel = new JLabel("Input");
+        setInputTextField(new JTextField("" + getModel().getInputValue()));
+        ActionListener setInputValue = new ActionListener(){
+	        public void actionPerformed(ActionEvent inputChange){
+                getModel().resetDisplayContents();
+                try{
+                    getModel().setInputValue(Short.valueOf(getInputTextField().getText()));
+                    getModel().setInputReady(true);
+                }catch(NumberFormatException err){
+                    getModel().setShowContents(new String [] {"Bad integer value; try again"});
+                    getModel().resetDisplayContents();
+                }
+
+          }};
+        getInputTextField().addActionListener(setInputValue);
 
         //
         // Create a panel to display the state of the machine model
@@ -86,13 +168,13 @@ public class MachineViewAndController extends JPanel implements Observer {
         //
 
         getPanel().add(accLabel);
-        getPanel().add(acc);
-        getPanel().add(progcountLabel);
-        getPanel().add(progcount);
+        getPanel().add(getAccTextField());
+        getPanel().add(counterLabel);
+        getPanel().add(getPcTextField());
         getPanel().add(nextinstrLabel);
         getPanel().add(nextinstr);
         getPanel().add(inputLabel);
-        getPanel().add(input);
+        getPanel().add(getInputTextField());
 
         add(getPanel());
 
