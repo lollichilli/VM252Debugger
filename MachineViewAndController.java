@@ -2,13 +2,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MachineViewAndController extends JPanel implements SimpleObserver {
+public class MachineViewAndController extends JPanel implements Observer {
     private static final int OUR_DEFAULT_FRAME_WIDTH = 200;
     private static final int OUR_DEFAULT_FRAME_HEIGHT = 200;
     private static final int OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH = 10;
 
     private JPanel myPanel;
-    private ObservableVM252 myModel;
+    private VM252Model myModel;
     private JLabel myLabel;
 
     //
@@ -19,7 +19,7 @@ public class MachineViewAndController extends JPanel implements SimpleObserver {
         return myPanel;
     }
 
-    private ObservableVM252 getModel() {
+    private VM252Model getModel() {
         return myModel;
     }
 
@@ -35,7 +35,7 @@ public class MachineViewAndController extends JPanel implements SimpleObserver {
         myPanel = other;
     }
 
-    private void setModel(ObservableVM252 other) {
+    private void setModel(VM252Model other) {
 
         if (getModel() != null)
             getModel().detach(this);
@@ -59,7 +59,7 @@ public class MachineViewAndController extends JPanel implements SimpleObserver {
         this(null);
     }
 
-    public MachineViewAndController(ObservableVM252 initialModel) {
+    public MachineViewAndController(VM252Model initialModel) {
 
         setSize(OUR_DEFAULT_FRAME_WIDTH, OUR_DEFAULT_FRAME_HEIGHT);
         setModel(initialModel);

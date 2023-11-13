@@ -32,7 +32,7 @@ public class ButtonsContainer extends JPanel {
         this(null);
     }
 
-    public ButtonsContainer(ObservableVM252 initialModel) {
+    public ButtonsContainer(VM252Model initialModel) {
 
         //
         // Create button controller

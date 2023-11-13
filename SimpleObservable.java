@@ -6,38 +6,45 @@ public class SimpleObservable implements Observable
 
     private ArrayList< Observer > myObservers;
 
+    protected ArrayList< Observer > observers()
+    {
+
+        return myObservers;
+
+        }
+
     public SimpleObservable()
     {
 
         myObservers = new ArrayList< Observer >();
 
-    }
+        }
 
     @Override
     public void attach(Observer anotherObserver)
     {
 
-        if (anotherObserver != null && ! myObservers.contains(anotherObserver))
-            myObservers.add(anotherObserver);
+        if (anotherObserver != null && ! observers().contains(anotherObserver))
+            observers().add(anotherObserver);
 
-    }
+        }
 
     @Override
     public void detach(Observer currentObserver)
     {
 
-        myObservers.remove(currentObserver);
+        observers().remove(currentObserver);
 
-    }
+        }
 
     @Override
     public void announceChange()
     {
 
-        for (Observer currentObserver : myObservers)
+        for (Observer currentObserver : observers())
             currentObserver.update();
 
-    }
+        }
 
-}
+    }
 

@@ -37,7 +37,7 @@ public class MachineViewContainer extends JPanel
         this(null);
     }
 
-    public MachineViewContainer(ObservableVM252 initialModel)
+    public MachineViewContainer(VM252Model initialModel)
     {
 
         //
@@ -60,15 +60,17 @@ public class MachineViewContainer extends JPanel
         // add panels to container
         //
 
+        statusView.setBounds(0, 0, 300, 300);
         getPanel().add(statusView);
+
+        memoryView.setBounds(400, 20, 300, 300);
         getPanel().add(memoryView);
-        
+
         // Set the layout manager of the frame to BorderLayout
         setLayout(new BorderLayout());
 
         // Add the panel to the frame with a BorderLayout constraint (e.g., WEST for left)
         add(getPanel(), BorderLayout.CENTER);
-               
 
     }
 }

@@ -4,13 +4,13 @@ import javax.swing.*;
 
 public class ButtonsController extends JPanel {
     private JPanel myPanel;
-    private ObservableVM252 myModel;
+    private VM252Model myModel;
 
     private JPanel getPanel() {
         return myPanel;
     }
 
-    private ObservableVM252 getModel() {
+    private VM252Model getModel() {
         return myModel;
     }
 
@@ -18,7 +18,7 @@ public class ButtonsController extends JPanel {
         myPanel = other;
     }
 
-    private void setModel(ObservableVM252 other) {
+    private void setModel(VM252Model other) {
         myModel = other;
     }
 
@@ -30,7 +30,7 @@ public class ButtonsController extends JPanel {
         this(null);
     }
 
-    public ButtonsController(ObservableVM252 initialModel) {
+    public ButtonsController(VM252Model initialModel) {
         setModel(initialModel);
 
         // Create icons with an ImageObserver

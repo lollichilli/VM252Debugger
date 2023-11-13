@@ -1,4 +1,11 @@
-public interface SimpleObserver extends Observer
+public class SimpleObserver implements Observer
 {
 
-}
+    public void update()
+    {
+
+        ; // do nothing
+
+        }
+
+    }

@@ -1,171 +1,27 @@
-class ObservableVM252 extends SimpleObservable
+interface ObservableVM252 extends Observable
 {
-    private short myACCValue;
-    private short myPCValue;
-    private byte [] myMemoryValue;
-    private short myInputValue;
-    private short myBreakPoint;
-    private String myNextInstruction;
-    private boolean myHaltStatus;
-    private boolean myPauseStatus;
-    private boolean isInputReady = false;
-    private int myExecutingSpeed;
-    private String [] myContents;
 
+    void announceAccumulatorChange();
     //
-    // Public Accessor
+    // Announce to all observers that this object's accumulator has changed
     //
 
-    public short getACCValue()
-    {
-        return myACCValue;
-    }
-
-    public short getPCValue()
-    {
-        return myPCValue;
-    }
-
-    public byte [] getMemoryValue()
-    {
-        return myMemoryValue;
-    }
-
-    public short getInputValue()
-    {
-        return myInputValue;
-    }
-
-    public String getNextInstruction()
-    {
-        return myNextInstruction;
-    }
-
-    public boolean getHaltStatus()
-    {
-        return myHaltStatus;
-    }
-
-    public short getBreakPoint()
-    {
-        return myBreakPoint;
-    }
-
-    public boolean getPauseStatus()
-    {
-        return myPauseStatus;
-    }
-
-    public boolean getInputStatus()
-    {
-        return isInputReady;
-    }
-
-    public int getExecutingSpeed()
-    {
-        return myExecutingSpeed;
-    }
-
-    public String [] getShowContents()
-    {
-        return myContents;
-    }
-
+    void announceProgramCounterChange();
     //
-    // Public Mutators
+    // Announce to all observers that this object's program counter has changed
     //
 
-    public void setACCValue(short other)
-    {
-        myACCValue = other;
-        announceChange();
-    }
-
-    public void setPCValue(short other)
-    {
-        myPCValue = other;
-        announceChange();
-    }
-
-    public void setMemoryValue(byte [] other)
-    {
-        myMemoryValue = other;
-        announceChange();
-    }
-
-    public void setInputValue(short other)
-    {
-        myInputValue = other;
-        announceChange();
-    }
-
-    public void setNextInstruction(String other)
-    {
-        myNextInstruction = other;
-        announceChange();
-    }
-
-    public void setHaultStatus(boolean other)
-    {
-        myHaltStatus = other;
-    }
-
-    public void setBreakPoint(short other)
-    {
-        myBreakPoint = other;
-    }
-
-    public void setPauseStatus(boolean other)
-    {
-        myPauseStatus = other;
-    }
-
-    public void setInputStatus(boolean other)
-    {
-        isInputReady = other;
-    }
-
-    public void setExecutingSpeed(int other)
-    {
-        myExecutingSpeed = other;
-    }
-
-    public void setShowContents(String [] other)
-    {
-        myContents = other;
-        announceChange();
-    }
-
-    public void resetContents()
-    {
-        String[] contents = {""};
-        myContents = contents;
-    }
-
+    void announceMemoryChange(int addressOfChangedByte);
     //
-    // Constructor
+    // Announce to all observers that the cintents of this object's memory cell at
+    // address addressOfChangedByte has changed
     //
 
-    ObservableVM252()
-    {
-        super();
+    void announceStoppedStatusChange();
+    //
+    // Announce to all observers of this object that this object's stopped status
+    // has changed
+    //
 
-        String [] welcomeContents = {"Welcome to VM252Debuger"};
-
-        setACCValue((short)0);
-        setPCValue((short)0);
-        setMemoryValue(new byte [8192]);
-        setNextInstruction("");
-        setShowContents(welcomeContents);
-    }
-
-    ObservableVM252(short initialACCValue, short initialPCValue, byte [] initialMemoryValue, String initialNextInstruction, String [] initialContents)
-    {
-
-        setACCValue(initialACCValue);
-        setPCValue(initialPCValue);
-        setMemoryValue(initialMemoryValue);
-        setNextInstruction(initialNextInstruction);
-        setShowContents(initialContents);
-    }
 }
+

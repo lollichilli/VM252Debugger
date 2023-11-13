@@ -2,12 +2,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ContentsView extends JPanel implements SimpleObserver {
+public class ContentsView extends JPanel implements Observer {
     private static final int OUR_DEFAULT_WIDTH = 300;
     private static final int OUR_DEFAULT_HEIGHT = 150;
 
     private JPanel myPanel;
-    private ObservableVM252 myModel;
+    private VM252Model myModel;
     private String[] myContents;
     private JTextArea contentsContainer;
 
@@ -19,7 +19,7 @@ public class ContentsView extends JPanel implements SimpleObserver {
         return myPanel;
     }
 
-    private ObservableVM252 getModel() {
+    private VM252Model getModel() {
         return myModel;
     }
 
@@ -43,7 +43,7 @@ public class ContentsView extends JPanel implements SimpleObserver {
         myContents = other;
     }
 
-    private void setModel(ObservableVM252 other) {
+    private void setModel(VM252Model other) {
         if (getModel() != null)
             getModel().detach(this);
 
@@ -66,7 +66,7 @@ public class ContentsView extends JPanel implements SimpleObserver {
         this(null);
     }
 
-    public ContentsView(ObservableVM252 initialModel) {
+    public ContentsView(VM252Model initialModel) {
         setModel(initialModel);
         setContents(getModel().getShowContents());
 
