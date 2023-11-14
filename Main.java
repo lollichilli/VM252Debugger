@@ -212,7 +212,7 @@ class ProgramFrame extends JFrame
         buttonsContainer.setBounds(0, 0, 800, 100);
         getPanel().add(buttonsContainer);
 
-        machineViewContainer.setBounds(0, 100, 500, 300);
+        machineViewContainer.setBounds(0, 100, 570, 300);
         getPanel().add(machineViewContainer);
 
         contentsView.setBounds(0, 400, 400, 250);
