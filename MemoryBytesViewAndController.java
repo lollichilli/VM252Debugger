@@ -6,8 +6,7 @@ import javax.swing.table.TableColumn;
 
 import java.lang.Integer;
 
-public class MemoryBytesViewAndController extends JPanel implements Observer
-{
+public class MemoryBytesViewAndController extends JPanel implements Observer {
 
     private JPanel myPanel;
     private VM252Model myModel;
@@ -18,18 +17,15 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
     // Accessors
     //
 
-    private JPanel getPanel()
-    {
+    private JPanel getPanel() {
         return myPanel;
     }
 
-    private VM252Model getModel()
-    {
+    private VM252Model getModel() {
         return myModel;
     }
 
-    private JLabel getLabel()
-    {
+    private JLabel getLabel() {
         return myLabel;
     }
 
@@ -37,13 +33,11 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
     // Mutators
     //
 
-    private void setPanel(JPanel other)
-    {
+    private void setPanel(JPanel other) {
         myPanel = other;
     }
 
-    private void setModel(VM252Model other)
-    {
+    private void setModel(VM252Model other) {
 
         if (getModel() != null)
             getModel().detach(this);
@@ -55,23 +49,19 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
 
     }
 
-    private void setLabel(JLabel other)
-    {
+    private void setLabel(JLabel other) {
         myLabel = other;
     }
-
 
     //
     // Constructors
     //
 
-    public MemoryBytesViewAndController()
-    {
+    public MemoryBytesViewAndController() {
         this(null);
     }
 
-    public MemoryBytesViewAndController(VM252Model initialModel)
-    {
+    public MemoryBytesViewAndController(VM252Model initialModel) {
         setModel(initialModel);
         setLabel(new JLabel(""));
 
@@ -80,12 +70,10 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
         //
 
         setPanel(new JPanel());
-        getPanel().setBackground(new Color(255, 255, 0));
+        // getPanel().setBackground(new Color(255, 255, 0));
         getPanel().add(getLabel());
 
-        
         myTable = new JTable(410, 21);
-        
 
         int rowCount = 410;
         int columnCount = 20;
@@ -123,8 +111,7 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
     }
 
     @Override
-    public void update()
-    {
+    public void update() {
         //
         // Update to display all the memory bytes of the machine's memory
         //
@@ -132,28 +119,28 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
         // int memoryValIndex = 0;
         // for(int row = 0; row < 410; ++row)
         // {
-        //     for(int col = 1; col < 21; ++col)
-        //     {
-        //         if(memoryValIndex != 8192)
-        //         {
+        // for(int col = 1; col < 21; ++col)
+        // {
+        // if(memoryValIndex != 8192)
+        // {
 
-        //             // Convert each byte as we loop through to an int and mask it
-        //             // so that we can convert into a hex string
+        // // Convert each byte as we loop through to an int and mask it
+        // // so that we can convert into a hex string
 
-        //             int byteToInt  = (int) getModel().memoryByte()[memoryValIndex] & 0xff;
-        //             String hexValue = Integer.toHexString(byteToInt);
+        // int byteToInt = (int) getModel().memoryByte()[memoryValIndex] & 0xff;
+        // String hexValue = Integer.toHexString(byteToInt);
 
-        //             // Pads hexValue with a zero if half a hex
-        //             if( hexValue.length() % 2 == 1)
-        //             {
-        //                 hexValue = "0" + hexValue;
-        //             }
-        //             myTable.setValueAt(hexValue, row, col);
-        //             ++memoryValIndex;
-        //         }
-        //         // else there is nothing left to populate table as all of the memory
-        //         //has been entered into the table
-        //     }
+        // // Pads hexValue with a zero if half a hex
+        // if( hexValue.length() % 2 == 1)
+        // {
+        // hexValue = "0" + hexValue;
+        // }
+        // myTable.setValueAt(hexValue, row, col);
+        // ++memoryValIndex;
+        // }
+        // // else there is nothing left to populate table as all of the memory
+        // //has been entered into the table
+        // }
         // }
     }
 }

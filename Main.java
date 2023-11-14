@@ -7,97 +7,73 @@ import java.util.Scanner;
 import vm252utilities.VM252Utilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-class AccumulatorPrinter extends VM252View
-{
-    
+class AccumulatorPrinter extends VM252View {
+
     private final VM252Model myModel;
-    
-    public AccumulatorPrinter(VM252Model model)
-    {       
-        myModel = model;       
-        }
-    
-    @Override
-    public void updateAccumulator()
-    {       
-        System.out.println("accumulator is now " + myModel.accumulator());        
-        }
-    
+
+    public AccumulatorPrinter(VM252Model model) {
+        myModel = model;
     }
 
-
-class ProgramCounterPrinter extends VM252View
-{
-    
-    private final VM252Model myModel;
-    
-    public ProgramCounterPrinter(VM252Model model)
-    {        
-        myModel = model;        
-        }
-    
     @Override
-    public void updateProgramCounter()
-    {        
-        System.out.println("program counter is now " + myModel.programCounter());        
-        }
-    
+    public void updateAccumulator() {
+        System.out.println("accumulator is now " + myModel.accumulator());
     }
 
+}
 
-class MemoryBytePrinter extends VM252View
-{
-    
+class ProgramCounterPrinter extends VM252View {
+
     private final VM252Model myModel;
-    
-    public MemoryBytePrinter(VM252Model model)
-    {        
-        myModel = model;        
-        }
-    
-    @Override
-    public void updateMemory(int address)
-    {        
-        System.out.printf("memory byte at address %d is now %02x\n", address, myModel.memoryByte(address));        
-        }
-    
+
+    public ProgramCounterPrinter(VM252Model model) {
+        myModel = model;
     }
 
-
-class StopAnnouncer extends VM252View
-{
-    
-    private final VM252Model myModel;
-    
-    public StopAnnouncer(VM252Model model)
-    {        
-        myModel = model;        
-        }
-    
     @Override
-    public void updateStoppedStatus()
-    {        
+    public void updateProgramCounter() {
+        System.out.println("program counter is now " + myModel.programCounter());
+    }
+
+}
+
+class MemoryBytePrinter extends VM252View {
+
+    private final VM252Model myModel;
+
+    public MemoryBytePrinter(VM252Model model) {
+        myModel = model;
+    }
+
+    @Override
+    public void updateMemory(int address) {
+        System.out.printf("memory byte at address %d is now %02x\n", address, myModel.memoryByte(address));
+    }
+
+}
+
+class StopAnnouncer extends VM252View {
+
+    private final VM252Model myModel;
+
+    public StopAnnouncer(VM252Model model) {
+        myModel = model;
+    }
+
+    @Override
+    public void updateStoppedStatus() {
         System.out.printf(
-            "machine stops with accumulator %d and program counter %d\n",
+                "machine stops with accumulator %d and program counter %d\n",
                 myModel.accumulator(),
-                myModel.programCounter()
-            );        
-        }
-    
+                myModel.programCounter());
     }
 
+}
 
-
-
-
-
-public class Main
-{
-    public static void main(String [] commandLineArguments) throws IOException
-    {
+public class Main {
+    public static void main(String[] commandLineArguments) throws IOException {
         EventQueue.invokeLater(
-            () ->
-                {
+                () -> {
                     //
                     // Set file choosing option
                     //
@@ -105,17 +81,15 @@ public class Main
                     ObjectFileChooser File = new ObjectFileChooser();
                     File.ObjectFileChooser();
 
-                    }
+                }
 
-            );
+        );
 
     }
 }
 
-class ObjectFileChooser extends JFileChooser
-{
-    public void ObjectFileChooser()
-    {
+class ObjectFileChooser extends JFileChooser {
+    public void ObjectFileChooser() {
         JFileChooser fileChooser = new JFileChooser();
 
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Opcode Files", "vm252obj");
@@ -124,10 +98,9 @@ class ObjectFileChooser extends JFileChooser
 
         int response = fileChooser.showOpenDialog(null);
 
-        if (response == JFileChooser.APPROVE_OPTION)
-        {
+        if (response == JFileChooser.APPROVE_OPTION) {
             String objectFile = fileChooser.getSelectedFile().getPath();
-            byte [] objectCode = VM252Utilities.readObjectCodeFromObjectFile(objectFile);
+            byte[] objectCode = VM252Utilities.readObjectCodeFromObjectFile(objectFile);
 
             //
             // Create program frame
@@ -143,18 +116,16 @@ class ObjectFileChooser extends JFileChooser
             frame.setVisible(true);
         }
 
-        else
-        {
+        else {
             System.exit(0);
         }
     }
 }
 
-class ProgramFrame extends JFrame
-{
+class ProgramFrame extends JFrame {
 
-    private static final int OUR_DEFAULT_WIDTH = 800;
-    private static final int OUR_DEFAULT_HEIGHT = 900;
+    private static final int OUR_DEFAULT_WIDTH = 1920;
+    private static final int OUR_DEFAULT_HEIGHT = 1080;
 
     private JPanel myPanel;
 
@@ -162,8 +133,7 @@ class ProgramFrame extends JFrame
     // Accessors
     //
 
-    private JPanel getPanel()
-    {
+    private JPanel getPanel() {
         return myPanel;
     }
 
@@ -171,8 +141,7 @@ class ProgramFrame extends JFrame
     // Mutators
     //
 
-    private void setPanel(JPanel other)
-    {
+    private void setPanel(JPanel other) {
         myPanel = other;
     }
 
@@ -180,13 +149,12 @@ class ProgramFrame extends JFrame
     // Constructors
     //
 
-    public ProgramFrame(byte [] objectCode)
-    {
+    public ProgramFrame(byte[] objectCode) {
         setTitle("VM252 Debugger");
         setSize(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
 
         VM252Model simulatedMachine = new VM252Model();
-        
+
         simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
         simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
         // simulatedMachine.attach(new MemoryBytePrinter(simulatedMachine));
@@ -200,7 +168,6 @@ class ProgramFrame extends JFrame
         Scanner inputStream = new Scanner(System.in);
         // // objectFile = inputStream.next();
 
-
         ButtonsContainer buttonsContainer = new ButtonsContainer(simulatedMachine);
         MachineViewContainer machineViewContainer = new MachineViewContainer(simulatedMachine);
         ContentsView contentsView = new ContentsView(simulatedMachine);
@@ -209,13 +176,17 @@ class ProgramFrame extends JFrame
 
         getPanel().setLayout(null);
 
-        buttonsContainer.setBounds(0, 0, 800, 100);
+        int buttonsContainerWidth = 1200;
+        int buttonsContainerHeight = 100;
+        int buttonsContainerX = (1920 - buttonsContainerWidth) / 2;
+        int buttonsContainerY = 0;
+        buttonsContainer.setBounds(buttonsContainerX, buttonsContainerY, buttonsContainerWidth, buttonsContainerHeight);
         getPanel().add(buttonsContainer);
 
-        machineViewContainer.setBounds(0, 100, 570, 300);
+        machineViewContainer.setBounds(300, 250, 570, 300);
         getPanel().add(machineViewContainer);
 
-        contentsView.setBounds(0, 400, 400, 250);
+        contentsView.setBounds(920, 100, 700, 400);
         getPanel().add(contentsView);
 
         add(getPanel());
@@ -225,35 +196,34 @@ class ProgramFrame extends JFrame
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 }
-
 
 // public class Main
 // {
 
-//     public static void main(String [ ] commandLineArguments) throws IOException
-//     {
+// public static void main(String [ ] commandLineArguments) throws IOException
+// {
 
-//         Scanner inputStream = new Scanner(System.in);
-        
-//         VM252Model simulatedMachine = new VM252Model();
-        
-//         simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
-//         simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
-//         simulatedMachine.attach(new MemoryBytePrinter(simulatedMachine));
-//         simulatedMachine.attach(new StopAnnouncer(simulatedMachine));
+// Scanner inputStream = new Scanner(System.in);
 
-//         MainController simulator = new MainController(simulatedMachine);
+// VM252Model simulatedMachine = new VM252Model();
 
-//         String objectFileName;
+// simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
+// simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
+// simulatedMachine.attach(new MemoryBytePrinter(simulatedMachine));
+// simulatedMachine.attach(new StopAnnouncer(simulatedMachine));
 
-//         System.out.println("Enter the name of a VM252 object file to run:");
-//         objectFileName = inputStream.next();
+// MainController simulator = new MainController(simulatedMachine);
 
-//          simulator.loadAndRun(objectFileName, inputStream, System.out);
+// String objectFileName;
 
-//         }
+// System.out.println("Enter the name of a VM252 object file to run:");
+// objectFileName = inputStream.next();
 
-//     }
+// simulator.loadAndRun(objectFileName, inputStream, System.out);
+
+// }
+
+// }
