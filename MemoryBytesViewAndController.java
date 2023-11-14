@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 import java.lang.Integer;
 
 public class MemoryBytesViewAndController extends JPanel implements Observer
@@ -81,42 +83,43 @@ public class MemoryBytesViewAndController extends JPanel implements Observer
         getPanel().setBackground(new Color(255, 255, 0));
         getPanel().add(getLabel());
 
+        
         myTable = new JTable(410, 21);
+        
 
-        int rowAddr = 0;
+        int rowCount = 410;
+        int columnCount = 20;
 
-        String [] colHeaders = {
-            "Address","0", "1","2","3","4","5","6","7",
-            "8", "9", "10", "11", "12", "13", "14",
-            "15", "16", "17", "18", "19"
+        String[] colHeaders = {
+                "Address", "0", "1", "2", "3", "4", "5", "6", "7",
+                "8", "9", "10", "11", "12", "13", "14",
+                "15", "16", "17", "18", "19"
         };
 
         for (int header = 0; header < 21; ++header) {
             myTable.getColumnModel().getColumn(header).setHeaderValue(colHeaders[header]);
-        };
-
-        for (int col = 0; col < 21; ++col)
-        {
-            myTable.getColumnModel().getColumn(col).setPreferredWidth(50);
+            myTable.getColumnModel().getColumn(header).setPreferredWidth(header == 0 ? 70 : 30);
         }
 
-        int memoryValIndex = 0;
+        myTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int row = 0; row < 410; ++row)
-        {
-            myTable.setValueAt("Addr" + rowAddr, row, 0);
-            // rowAddr = rowAddr + 20;
+        for (int row = 0; row < rowCount; row++) {
+            myTable.setValueAt("Addr " + (row * 20), row, 0);
         }
 
-        // Add the JTable to a JScrollPane
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 1; column <= columnCount; column++) {
+                myTable.setValueAt("00", row, column);
+            }
+        }
+
         JScrollPane scrollPane = new JScrollPane(myTable);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(0, 0, 300, 150);
-        add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setPreferredSize(new Dimension(400, 150));
 
-        // setLayout(null);
-        // add(scrollPane);
+        add(scrollPane, BorderLayout.CENTER);
+        add(getPanel());
     }
 
     @Override
