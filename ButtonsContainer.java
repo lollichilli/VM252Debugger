@@ -3,8 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ButtonsContainer extends JPanel {
-    private static final int OUR_DEFAULT_WIDTH = 300;
-    private static final int OUR_DEFAULT_HEIGHT = 800;
+    private static final int OUR_DEFAULT_WIDTH = 1920;
+    private static final int OUR_DEFAULT_HEIGHT = 1080;
 
     private JPanel myPanel;
 

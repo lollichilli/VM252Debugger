@@ -3,8 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ContentsView extends JPanel implements Observer {
-    private static final int OUR_DEFAULT_WIDTH = 300;
-    private static final int OUR_DEFAULT_HEIGHT = 150;
+    private static final int OUR_DEFAULT_WIDTH = 1920;
+    private static final int OUR_DEFAULT_HEIGHT = 1080;
 
     private JPanel myPanel;
     private VM252Model myModel;
@@ -72,20 +72,22 @@ public class ContentsView extends JPanel implements Observer {
 
         setPanel(new JPanel());
 
-        setContentsContainer(new JTextArea("Welcome" + "\n", 10, 1));
-        getContentsContainer().setBounds(800, 800, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        setContentsContainer(new JTextArea("Welcome" + "\n", 20, 20));
+        getContentsContainer().setBounds(250, 250, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
         getContentsContainer().setBackground(new Color(0, 0, 0));
         getContentsContainer().setForeground(Color.WHITE);
         getContentsContainer().setLineWrap(true);
         getContentsContainer().setEditable(false);
+        contentsContainer.setPreferredSize(new Dimension(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT));
 
         JScrollPane scroll = new JScrollPane(getContentsContainer());
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(100, 100, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
 
-        setLayout(null);
-        add(scroll);
+        setLayout(new BorderLayout());
+        add(scroll, BorderLayout.CENTER);
+
         //
         // Initially display the model's display contents
         //
