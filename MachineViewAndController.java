@@ -184,9 +184,7 @@ public class MachineViewAndController extends JPanel implements Observer {
 
     @Override
     public void update() {
-        //
-        // Update to display the current status of the machine (ACC, PC, Next
-        // Instructions)
-        //
+        getAccTextField().setText("" + getModel().accumulator());
+        getPcTextField().setText("" + getModel().programCounter());
     }
 }
