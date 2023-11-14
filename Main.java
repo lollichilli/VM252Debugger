@@ -187,10 +187,10 @@ class ProgramFrame extends JFrame
 
         VM252Model simulatedMachine = new VM252Model();
         
-        // simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
-        // simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
+        simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
+        simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
         // simulatedMachine.attach(new MemoryBytePrinter(simulatedMachine));
-        // simulatedMachine.attach(new StopAnnouncer(simulatedMachine));
+        simulatedMachine.attach(new StopAnnouncer(simulatedMachine));
 
         MainController simulator = new MainController(simulatedMachine);
 

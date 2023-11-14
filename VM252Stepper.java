@@ -259,14 +259,22 @@ public class VM252Stepper
                     machineOutputStream().println();
                     machineOutputStream().flush();
 
+                        // machineState().resetDisplayContents();
+
+                        // machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "Running INPUT"});
+                        // while (!machineState().getInputReady())
+                        //     machineState().resetDisplayContents();
+
+                        // machineState().setAccumulator(machineState().getInputValue());
+                        // machineState().setShowContents(new String[] {"Addr " + machineState().programCounter() + ": " + "Set Input value to " + machineState().getInputValue()});
+
+                        // machineState().setInputReady(false);
+
                     break;
 
                 case VM252ArchitectureSpecifications.OUTPUT_OPCODE :
-                    machineOutputStream().println(
-                            "OUTPUT: " + machineState().accumulator()
-                            );
-                    machineOutputStream().println();
-                    machineOutputStream().flush();
+                    String [] output = {"Addr " + machineState().programCounter() + ": " + "OUTPUT: " + machineState().accumulator()};
+                    machineState().setShowContents(output);
                     break;
 
                 case VM252ArchitectureSpecifications.NO_OP_OPCODE :
