@@ -2,11 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MachineViewContainer extends JPanel
-{
-    private static final int OUR_DEFAULT_WIDTH = 600;
-    private static final int OUR_DEFAULT_HEIGHT = 300;
-
+public class MachineViewContainer extends JPanel {
+    private static final int OUR_DEFAULT_WIDTH = 1920;
+    private static final int OUR_DEFAULT_HEIGHT = 1080;
 
     private JPanel myPanel;
 
@@ -14,8 +12,7 @@ public class MachineViewContainer extends JPanel
     // Accessors
     //
 
-    private JPanel getPanel()
-    {
+    private JPanel getPanel() {
         return myPanel;
     }
 
@@ -23,8 +20,7 @@ public class MachineViewContainer extends JPanel
     // Mutators
     //
 
-    private void setPanel(JPanel other)
-    {
+    private void setPanel(JPanel other) {
         myPanel = other;
     }
 
@@ -32,13 +28,11 @@ public class MachineViewContainer extends JPanel
     // Ctors
     //
 
-    public MachineViewContainer()
-    {
+    public MachineViewContainer() {
         this(null);
     }
 
-    public MachineViewContainer(VM252Model initialModel)
-    {
+    public MachineViewContainer(VM252Model initialModel) {
 
         //
         // Create a container for displaying machine status
@@ -54,22 +48,23 @@ public class MachineViewContainer extends JPanel
 
         setPanel(new JPanel());
 
-        //getPanel().setBackground(new Color(255, 255, 0));
+        // getPanel().setBackground(new Color(255, 255, 0));
 
         //
         // add panels to container
         //
 
-        statusView.setBounds(0, 0, 300, 300);
+        statusView.setBounds(0, 0, 700, 400);
         getPanel().add(statusView);
 
-        memoryView.setBounds(400, 20, 300, 300);
+        memoryView.setBounds(400, 20, 700, 300);
         getPanel().add(memoryView);
 
         // Set the layout manager of the frame to BorderLayout
         setLayout(new BorderLayout());
 
-        // Add the panel to the frame with a BorderLayout constraint (e.g., WEST for left)
+        // Add the panel to the frame with a BorderLayout constraint (e.g., WEST for
+        // left)
         add(getPanel(), BorderLayout.CENTER);
 
     }

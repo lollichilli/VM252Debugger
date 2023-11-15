@@ -43,14 +43,15 @@ public class ButtonsController extends JPanel {
         ImageIcon quitIcon = new ImageIcon(
                 new ImageIcon("Icons/Quit.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
-
-
         //
         // Create labels
         //
 
-        JTextField textFieldba = new JTextField("",10);
-
+        JTextField textFieldba = new JTextField("", 20);
+        Dimension textFieldSize = new Dimension(300, 30);
+        textFieldba.setPreferredSize(textFieldSize);
+        textFieldba.setMaximumSize(textFieldSize);
+        textFieldba.setMinimumSize(textFieldSize);
         //
         // Create buttons
         //
@@ -67,12 +68,14 @@ public class ButtonsController extends JPanel {
         helpButton.setPreferredSize(new Dimension(32, 32));
         quitButton.setPreferredSize(new Dimension(32, 32));
 
+        // Set layout manager to FlowLayout with CENTER alignment
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+
         //
         // Create labels
         //
 
         JLabel baJLabel = new JLabel("ba:");
-        
 
         //
         // Set the preferred size of the icon buttons to match the button size
@@ -89,9 +92,10 @@ public class ButtonsController extends JPanel {
         // Add buttons to the JToolBar with separators for spacing
         //
 
+        toolbar.add(runButton);
+        toolbar.addSeparator();
         toolbar.add(baJLabel);
         toolbar.add(textFieldba);
-        toolbar.add(runButton);
         toolbar.addSeparator();
         toolbar.add(pauseButton);
         toolbar.addSeparator();
@@ -131,7 +135,7 @@ public class ButtonsController extends JPanel {
         toolbar.setRollover(true);
 
         // Set the preferred size of the JToolBar
-        toolbar.setPreferredSize(new Dimension(450, 40));
+        toolbar.setPreferredSize(new Dimension(700, 40));
 
         // Add the JToolBar to the panel
         getPanel().add(toolbar, BorderLayout.NORTH);
