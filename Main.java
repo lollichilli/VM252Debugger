@@ -172,32 +172,37 @@ class ProgramFrame extends JFrame {
         MachineViewContainer machineViewContainer = new MachineViewContainer(simulatedMachine);
         ContentsView contentsView = new ContentsView(simulatedMachine);
 
-        setPanel(new JPanel());
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        getPanel().setLayout(null);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(buttonsContainer, gbc);
 
-        int buttonsContainerWidth = 1200;
-        int buttonsContainerHeight = 100;
-        int buttonsContainerX = (1920 - buttonsContainerWidth) / 2;
-        int buttonsContainerY = 0;
-        buttonsContainer.setBounds(buttonsContainerX, buttonsContainerY, buttonsContainerWidth, buttonsContainerHeight);
-        getPanel().add(buttonsContainer);
+        gbc.gridy = 1;
+        gbc.weighty = 0.6;
+        gbc.ipadx = 200;
+        add(machineViewContainer, gbc);
 
-        machineViewContainer.setBounds(300, 250, 570, 300);
-        getPanel().add(machineViewContainer);
-
-        contentsView.setBounds(920, 100, 700, 400);
-        getPanel().add(contentsView);
-
-        add(getPanel());
+        gbc.gridy = 2;
+        gbc.weighty = 0.3;
+        add(contentsView, gbc);
 
         try {
             simulator.loadAndRun(objectCode, inputStream, System.out);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
 
     }
+
 }
 
 // public class Main
