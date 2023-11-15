@@ -3,8 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ButtonsController extends JPanel {
+
     private JPanel myPanel;
     private VM252Model myModel;
+    private JButton quitButton, runButton, helpButton, pauseButton, resumeButton, increaseButton, decreaseButton ;
 
     private JPanel getPanel() {
         return myPanel;
@@ -107,9 +109,15 @@ public class ButtonsController extends JPanel {
         toolbar.addSeparator();
         toolbar.add(helpButton);
 
+
         //
         // listeners
         //
+
+        pauseButton.addActionListener(new ChangeRunningStatus());
+        resumeButton.addActionListener(new ChangeRunningStatus());
+        quitButton.addActionListener(new quitListener());
+
         helpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String[] helpContents = { "ba MA = Set a breakpoint at address MA",
@@ -121,6 +129,7 @@ public class ButtonsController extends JPanel {
                 getModel().setShowContents(helpContents);
             }
         });
+
         // Make the JToolBar so that it can't be dragged
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
@@ -133,5 +142,30 @@ public class ButtonsController extends JPanel {
 
         add(getPanel());
 
+
     }
+
+	private class ChangeRunningStatus implements ActionListener
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+            if (event.getSource() == pauseButton)
+                ButtonsController.this.getModel().setStoppedStatus(VM252Model.StoppedCategory.stopped);
+            else if (event.getSource() == resumeButton)
+                ButtonsController.this.getModel().setStoppedStatus(VM252Model.StoppedCategory.notStopped);
+            else
+                ;
+        }
+    }
+
+    private class quitListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent event)
+        {
+            System.exit(0); // Exit the program
+        }
+    }
+
+    
 }
