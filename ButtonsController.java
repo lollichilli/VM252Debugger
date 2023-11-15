@@ -4,11 +4,6 @@ import javax.swing.*;
 
 public class ButtonsController extends JPanel {
 
-    public enum StoppedCategory {
-        notStopped,
-        stopped
-    };
-
     private JPanel myPanel;
     private VM252Model myModel;
     private JButton quitButton, runButton, helpButton, pauseButton, resumeButton, increaseButton, decreaseButton ;
