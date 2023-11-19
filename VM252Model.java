@@ -45,7 +45,7 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
 
             throw
                 new IllegalArgumentException(
-                        "empt to getch memory byte from illegal memory address " + address
+                        "Attempt to getch memory byte from illegal memory address " + address
                         );
 
         else
