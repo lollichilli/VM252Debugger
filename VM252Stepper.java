@@ -16,8 +16,6 @@ public class VM252Stepper
     //
 
     private VM252Model myMachineState;
-    private Scanner myMachineInputStream;
-    private PrintStream myMachineOutputStream;
 
     //
     // Public Accessors
@@ -27,20 +25,6 @@ public class VM252Stepper
     {
 
         return myMachineState;
-
-    }
-
-    public Scanner machineInputStream()
-    {
-
-        return myMachineInputStream;
-
-    }
-
-    public PrintStream machineOutputStream()
-    {
-
-        return myMachineOutputStream;
 
     }
 
@@ -91,17 +75,10 @@ public class VM252Stepper
     //  Public Ctor
     //
 
-    public VM252Stepper(
-            VM252Model machineState,
-            Scanner machineInputStream,
-            PrintStream machineOutputStream
-            )
+    public VM252Stepper(VM252Model machineState)
     {
 
         myMachineState = machineState;
-        myMachineInputStream = machineInputStream;
-        myMachineOutputStream = machineOutputStream;
-
     }
 
     //
@@ -229,46 +206,18 @@ public class VM252Stepper
 
                 case VM252ArchitectureSpecifications.INPUT_OPCODE :
 
-                    for (machineOutputStream().print("INPUT: "),
-                            machineOutputStream().flush();
-                            machineInputStream().hasNext()
-                            && ! machineInputStream().hasNextInt();
-                            machineOutputStream().print("INPUT: "),
-                            machineOutputStream().flush()
-                        ) {
-                        machineInputStream().next();
-                        machineOutputStream().println(
-                                "INPUT: Bad integer value; try again"
-                                );
-                        machineOutputStream().flush();
-                        }
+                    machineState().resetDisplayContents();
 
-                    if (! machineInputStream().hasNext())
+                    machineState().setShowContents(new String [] {"Running INPUT"});
 
-                        throw
-                            new IOException(
-                                    "No valid input available for INPUT intruction"
-                                    );
+                    while (!machineState().getInputReady())
+                        machineState().resetDisplayContents();
 
-                    else
+                    machineState().setAccumulator(machineState().getInputValue());
 
-                        machineState().setAccumulator(
-                                machineInputStream().nextInt()
-                                );
+                    machineState().setShowContents(new String[] {"Set Input value to " + machineState().getInputValue()});
 
-                    machineOutputStream().println();
-                    machineOutputStream().flush();
-
-                        // machineState().resetDisplayContents();
-
-                        // machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "Running INPUT"});
-                        // while (!machineState().getInputReady())
-                        //     machineState().resetDisplayContents();
-
-                        // machineState().setAccumulator(machineState().getInputValue());
-                        // machineState().setShowContents(new String[] {"Addr " + machineState().programCounter() + ": " + "Set Input value to " + machineState().getInputValue()});
-
-                        // machineState().setInputReady(false);
+                    machineState().setInputReady(false);
 
                     break;
 

@@ -1,4 +1,6 @@
 import vm252architecturespecifications.VM252ArchitectureSpecifications;
+import vm252architecturespecifications.VM252ArchitectureSpecifications.Instruction;
+import java.io.IOException;
 
 public class VM252Model extends SimpleObservable implements ObservableVM252
 {
@@ -14,10 +16,12 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         = new byte [ VM252ArchitectureSpecifications.MEMORY_SIZE_IN_BYTES ];
     private StoppedCategory myStoppedStatus;
     private short myInput;
+    private short myBreakPoint;
     private boolean inputReady = false;
     private int myExecutionSpeed;
     private boolean myPauseStatus;
     private String [] myContents;
+    private VM252Stepper stepper;
 
     //
     // Public Accessors
@@ -69,6 +73,11 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
     public boolean getInputReady()
     {
         return inputReady;
+    }
+
+    public short getBreakPoint()
+    {
+        return myBreakPoint;
     }
 
     public int getExecutionSpeed()
@@ -160,6 +169,11 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         inputReady = other;
     }
 
+    public void setBreakPoint(short other)
+    {
+        myBreakPoint = other;
+    }
+
     public void setExecutionSpeed(int other)
     {
         myExecutionSpeed = other;
@@ -184,19 +198,32 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
 
     //
     // Public Ctors
-    //
 
-    public VM252Model()
+    public VM252Model(byte[] objectCode)
     {
         String [] welcomeContents = {"Welcome to VM252Debuger"};
 
+        for (int address = 0; address < objectCode.length; ++ address)
+        {
+            setMemoryByte(address, objectCode[ address ]);
+        }
         setAccumulator(0);
         setProgramCounter(0);
         setShowContents(welcomeContents);
         setExecutionSpeed(500);
+        setBreakPoint((short)8192);
         setPauseStatus(false);
         setStoppedStatus(StoppedCategory.notStopped);
+        stepper = new VM252Stepper(this);
+    }
 
+    public void runProgram()
+    {
+        try {
+            stepper.step();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //

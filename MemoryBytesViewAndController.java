@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.lang.Integer;
 
 import java.lang.Integer;
@@ -126,6 +128,27 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
 
         add(scrollPane, BorderLayout.CENTER);
         add(getPanel());
+
+        myTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                int changedRow = myTable.getSelectedRow();
+                int changedColumn = myTable.getSelectedColumn();
+
+                if (changedColumn != 0){
+                    String hexValue = myTable.getValueAt(changedRow, changedColumn).toString();
+
+                    int hexToInt = Integer.parseInt(hexValue, 16);
+                    int byteIndexToChange = changedRow * 20 + changedColumn;
+                    byte intToByte = (byte) hexToInt;
+                    getModel().setMemoryByte(byteIndexToChange, intToByte);
+                }
+                else{
+                    int rowAddr = changedRow * 20;
+                    myTable.setValueAt("Addr " + rowAddr, changedRow, changedColumn);
+                }
+            }
+        });
+
     }
 
     @Override

@@ -99,41 +99,41 @@ public class MainController
         //     none
         //
 
-        public void loadAndRun(
-            byte [] objectCode,
-            Scanner machineInputStream,
-            PrintStream machineOutputStream
-            ) throws IOException
-        {
+    // public void loadAndRun(
+    //     byte [] objectCode,
+    //     Scanner machineInputStream,
+    //     PrintStream machineOutputStream
+    //     ) throws IOException
+    // {
 
-            // byte [ ] objectCode
-            //     = VM252Utilities.readObjectCodeFromObjectFile(objectFileName);
+    //     // byte [ ] objectCode
+    //     //     = VM252Utilities.readObjectCodeFromObjectFile(objectFileName);
 
-            if (objectCode != null) {
+    //     if (objectCode != null) {
 
-                setMachineStepper(
-                    new VM252Stepper(machineState(), machineInputStream, machineOutputStream)
-                    );
+    //         setMachineStepper(
+    //             new VM252Stepper(machineState(), machineInputStream, machineOutputStream)
+    //             );
 
-                //
-                // Copy the object code bytes into the simulated memory bytes
-                // of machineState()
-                //
+    //         //
+    //         // Copy the object code bytes into the simulated memory bytes
+    //         // of machineState()
+    //         //
 
-                    for (int address = 0; address < objectCode.length; ++ address)
-                        machineState().setMemoryByte(address, objectCode[ address ]);
+    //             for (int address = 0; address < objectCode.length; ++ address)
+    //                 machineState().setMemoryByte(address, objectCode[ address ]);
 
-                //
-                // Simulate execution of the object code until the simulated machine
-                // executes a STOP instruction
-                //
+    //         //
+    //         // Simulate execution of the object code until the simulated machine
+    //         // executes a STOP instruction
+    //         //
 
-                    while (machineState().stoppedStatus()
-                            == VM252Model.StoppedCategory.notStopped)
-                        machineStepper().step();
+    //             while (machineState().stoppedStatus()
+    //                     == VM252Model.StoppedCategory.notStopped)
+    //                 machineStepper().step();
 
-                }
+    //         }
 
-            }
+    //     }
 
     }

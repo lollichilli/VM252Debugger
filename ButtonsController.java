@@ -130,6 +130,10 @@ public class ButtonsController extends JPanel {
             }
         });
 
+        RunButtonActionListener runListener = new RunButtonActionListener();
+        runButton.addActionListener(runListener);
+
+
         // Make the JToolBar so that it can't be dragged
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
@@ -142,8 +146,8 @@ public class ButtonsController extends JPanel {
 
         add(getPanel());
 
-
     }
+
 
 	private class ChangeRunningStatus implements ActionListener
     {
@@ -158,6 +162,41 @@ public class ButtonsController extends JPanel {
         }
     }
 
+    private class RunButtonActionListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+            ExecutionThread runThread = new ExecutionThread();
+            runThread.start();
+        }
+    }
+
+    private class ExecutionThread extends Thread{
+        @Override
+        public void run()
+        {
+            boolean hitBreakPoint = false;
+
+            while(getModel().stoppedStatus() != VM252Model.StoppedCategory.stopped && !hitBreakPoint)
+            {
+                if (getModel().getPauseStatus())
+                    ; // do nothing
+                else if (getModel().getBreakPoint() == getModel().programCounter())
+                {
+                    getModel().runProgram();
+                    getModel().setShowContents(new String [] {"Hit breakpoint at address " + getModel().getBreakPoint() });
+                    hitBreakPoint = true;
+                } else
+                    getModel().runProgram();
+
+                try
+                {
+                    Thread.sleep(getModel().getExecutionSpeed());
+                } catch(Exception e){}
+            }
+        }
+    }
+
     private class quitListener implements ActionListener
     {
         @Override
@@ -167,5 +206,4 @@ public class ButtonsController extends JPanel {
         }
     }
 
-    
 }

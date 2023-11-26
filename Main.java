@@ -153,7 +153,7 @@ class ProgramFrame extends JFrame {
         setTitle("VM252 Debugger");
         setSize(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
 
-        VM252Model simulatedMachine = new VM252Model();
+        VM252Model simulatedMachine = new VM252Model(objectCode);
 
         simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
         simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
@@ -162,11 +162,7 @@ class ProgramFrame extends JFrame {
 
         MainController simulator = new MainController(simulatedMachine);
 
-        // // String objectFileName;
-
-        // // System.out.println("Enter the name of a VM252 object file to run:");
         Scanner inputStream = new Scanner(System.in);
-        // // objectFile = inputStream.next();
 
         ButtonsContainer buttonsContainer = new ButtonsContainer(simulatedMachine);
         MachineViewContainer machineViewContainer = new MachineViewContainer(simulatedMachine);
@@ -193,11 +189,6 @@ class ProgramFrame extends JFrame {
         gbc.weighty = 0.3;
         add(contentsView, gbc);
 
-        try {
-            simulator.loadAndRun(objectCode, inputStream, System.out);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
@@ -205,30 +196,3 @@ class ProgramFrame extends JFrame {
 
 }
 
-// public class Main
-// {
-
-// public static void main(String [ ] commandLineArguments) throws IOException
-// {
-
-// Scanner inputStream = new Scanner(System.in);
-
-// VM252Model simulatedMachine = new VM252Model();
-
-// simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
-// simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
-// simulatedMachine.attach(new MemoryBytePrinter(simulatedMachine));
-// simulatedMachine.attach(new StopAnnouncer(simulatedMachine));
-
-// MainController simulator = new MainController(simulatedMachine);
-
-// String objectFileName;
-
-// System.out.println("Enter the name of a VM252 object file to run:");
-// objectFileName = inputStream.next();
-
-// simulator.loadAndRun(objectFileName, inputStream, System.out);
-
-// }
-
-// }
