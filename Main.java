@@ -7,68 +7,39 @@ import java.util.Scanner;
 import vm252utilities.VM252Utilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-class AccumulatorPrinter extends VM252View {
 
-    private final VM252Model myModel;
+// class MemoryBytePrinter extends VM252View {
 
-    public AccumulatorPrinter(VM252Model model) {
-        myModel = model;
-    }
+//     private final VM252Model myModel;
 
-    @Override
-    public void updateAccumulator() {
-        System.out.println("accumulator is now " + myModel.accumulator());
-    }
+//     public MemoryBytePrinter(VM252Model model) {
+//         myModel = model;
+//     }
 
-}
+//     @Override
+//     public void updateMemory(int address) {
+//         System.out.printf("memory byte at address %d is now %02x\n", address, myModel.memoryByte(address));
+//     }
 
-class ProgramCounterPrinter extends VM252View {
+// }
 
-    private final VM252Model myModel;
+// class StopAnnouncer extends VM252View {
 
-    public ProgramCounterPrinter(VM252Model model) {
-        myModel = model;
-    }
+//     private final VM252Model myModel;
 
-    @Override
-    public void updateProgramCounter() {
-        System.out.println("program counter is now " + myModel.programCounter());
-    }
+//     public StopAnnouncer(VM252Model model) {
+//         myModel = model;
+//     }
 
-}
+//     @Override
+//     public void updateStoppedStatus() {
+//         System.out.printf(
+//                 "machine stops with accumulator %d and program counter %d\n",
+//                 myModel.accumulator(),
+//                 myModel.programCounter());
+//     }
 
-class MemoryBytePrinter extends VM252View {
-
-    private final VM252Model myModel;
-
-    public MemoryBytePrinter(VM252Model model) {
-        myModel = model;
-    }
-
-    @Override
-    public void updateMemory(int address) {
-        System.out.printf("memory byte at address %d is now %02x\n", address, myModel.memoryByte(address));
-    }
-
-}
-
-class StopAnnouncer extends VM252View {
-
-    private final VM252Model myModel;
-
-    public StopAnnouncer(VM252Model model) {
-        myModel = model;
-    }
-
-    @Override
-    public void updateStoppedStatus() {
-        System.out.printf(
-                "machine stops with accumulator %d and program counter %d\n",
-                myModel.accumulator(),
-                myModel.programCounter());
-    }
-
-}
+// }
 
 public class Main {
     public static void main(String[] commandLineArguments) throws IOException {
@@ -154,15 +125,6 @@ class ProgramFrame extends JFrame {
         setSize(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
 
         VM252Model simulatedMachine = new VM252Model(objectCode);
-
-        simulatedMachine.attach(new AccumulatorPrinter(simulatedMachine));
-        simulatedMachine.attach(new ProgramCounterPrinter(simulatedMachine));
-        // simulatedMachine.attach(new MemoryBytePrinter(simulatedMachine));
-        simulatedMachine.attach(new StopAnnouncer(simulatedMachine));
-
-        MainController simulator = new MainController(simulatedMachine);
-
-        Scanner inputStream = new Scanner(System.in);
 
         ButtonsContainer buttonsContainer = new ButtonsContainer(simulatedMachine);
         MachineViewContainer machineViewContainer = new MachineViewContainer(simulatedMachine);
