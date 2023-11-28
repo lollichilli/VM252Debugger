@@ -52,6 +52,7 @@ public class ButtonsController extends JPanel {
         textFieldba.setPreferredSize(textFieldSize);
         textFieldba.setMaximumSize(textFieldSize);
         textFieldba.setMinimumSize(textFieldSize);
+
         //
         // Create buttons
         //
@@ -80,12 +81,14 @@ public class ButtonsController extends JPanel {
         //
         // Set the preferred size of the icon buttons to match the button size
         //
+
         setPanel(new JPanel());
         getPanel().setLayout(new GridLayout(1, 7, 10, 0));
 
         //
         // Create a JToolBar with horizontal orientation
         //
+
         JToolBar toolbar = new JToolBar(JToolBar.HORIZONTAL);
 
         //
@@ -154,16 +157,11 @@ public class ButtonsController extends JPanel {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == pauseButton) {
                 getModel().setPauseStatus(true);
-                System.out.println("Pause Button Clicked");
             } else if (event.getSource() == resumeButton) {
                 getModel().setPauseStatus(false);
-                System.out.println("Resume Button Clicked");
-            } else {
-                System.out.println("Button Clicked didnt work");
             }
         }
     }
-	
 
     private class RunButtonActionListener implements ActionListener
     {
@@ -203,9 +201,15 @@ public class ButtonsController extends JPanel {
     private class quitListener implements ActionListener
     {
         @Override
-        public void actionPerformed(ActionEvent event)
-        {
-            System.exit(0); // Exit the program
+        public void actionPerformed(ActionEvent e) {
+
+            // Close current JFrame
+            ((JFrame)myPanel.getTopLevelAncestor()).dispose();
+
+            // Create a new FileChooser
+            ObjectFileChooser newFile = new ObjectFileChooser();
+
+            newFile.ObjectFileChooser();
         }
     }
 
@@ -221,8 +225,7 @@ public class ButtonsController extends JPanel {
             {
                 int currentExecutionSpeed = getModel().getExecutionSpeed();
                 getModel().setExecutionSpeed(currentExecutionSpeed + 500);
-            }else
-                ; // do nothing
+            }
         }
     }
 

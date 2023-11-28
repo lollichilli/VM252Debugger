@@ -7,22 +7,6 @@ import java.util.Scanner;
 import vm252utilities.VM252Utilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
-// class MemoryBytePrinter extends VM252View {
-
-//     private final VM252Model myModel;
-
-//     public MemoryBytePrinter(VM252Model model) {
-//         myModel = model;
-//     }
-
-//     @Override
-//     public void updateMemory(int address) {
-//         System.out.printf("memory byte at address %d is now %02x\n", address, myModel.memoryByte(address));
-//     }
-
-// }
-
 // class StopAnnouncer extends VM252View {
 
 //     private final VM252Model myModel;

@@ -41,7 +41,6 @@ public class ButtonsContainer extends JPanel {
         ButtonsController buttons = new ButtonsController(initialModel);
 
         setPanel(new JPanel());
-        // getPanel().setBackground(new Color(255, 255, 0));
         getPanel().setSize(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
         getPanel().add(buttons);
 
