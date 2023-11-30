@@ -48,10 +48,8 @@ public class MachineViewContainer extends JPanel {
 
         setPanel(new JPanel());
 
-        // getPanel().setBackground(new Color(255, 255, 0));
-
         //
-        // add panels to container
+        // Add panels to container
         //
 
         statusView.setBounds(0, 0, 700, 300);

@@ -147,75 +147,91 @@ public class VM252Stepper
             switch (currentInstruction.numericOpcode()) {
 
                 case VM252ArchitectureSpecifications.LOAD_OPCODE :
+                    machineState().resetDisplayContents();
                     machineState().setAccumulator(
                             fetchMemoryData(currentInstruction.numericOperand())
                             );
+                    machineState().setShowContents(new String[] {"Addr " + machineState().programCounter() + ": " + "LOAD " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.SET_OPCODE :
+                    machineState().resetDisplayContents();
                     machineState().setAccumulator(
                             currentInstruction.numericOperand()
                             );
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "SET " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.STORE_OPCODE :
+                    machineState().resetDisplayContents();
                     storeMemoryData(
                             currentInstruction.numericOperand(),
                             machineState().accumulator()
                             );
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "STORE " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.ADD_OPCODE :
+                    machineState().resetDisplayContents();
                     data = fetchMemoryData(currentInstruction.numericOperand());
                     machineState().setAccumulator(
                             machineState().accumulator() + data
                             );
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "ADD " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.SUBTRACT_OPCODE :
+                    machineState().resetDisplayContents();
                     data = fetchMemoryData(currentInstruction.numericOperand());
                     machineState().setAccumulator(
                             machineState().accumulator() - data
                             );
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "SUBTRACT " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.JUMP_OPCODE :
+                    machineState().resetDisplayContents();
                     machineState().setProgramCounter(
                             currentInstruction.numericOperand()
                             );
                     suppressProgramCounterIncrement = true;
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "JUMP " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.JUMP_ON_ZERO_OPCODE :
+                    machineState().resetDisplayContents();
                     if (machineState().accumulator() == 0) {
                         machineState().setProgramCounter(
                                 currentInstruction.numericOperand()
                                 );
                         suppressProgramCounterIncrement = true;
                     }
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "JUMPZ " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.JUMP_ON_POSITIVE_OPCODE :
+                    machineState().resetDisplayContents();
                     if (machineState().accumulator() > 0) {
                         machineState().setProgramCounter(
                                 currentInstruction.numericOperand()
                                 );
                         suppressProgramCounterIncrement = true;
                     }
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "JUMPP " + currentInstruction.numericOperand()});
                     break;
 
                 case VM252ArchitectureSpecifications.INPUT_OPCODE :
 
                     machineState().resetDisplayContents();
 
-                    machineState().setShowContents(new String [] {"Running INPUT"});
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "Running INPUT"});
 
                     while (!machineState().getInputReady())
                         machineState().resetDisplayContents();
 
                     machineState().setAccumulator(machineState().getInputValue());
 
-                    machineState().setShowContents(new String[] {"Set Input value to " + machineState().getInputValue()});
+                    machineState().setShowContents(new String[] {"Addr " + machineState().programCounter() + ": " + "Set Input value to " + machineState().getInputValue()});
 
                     machineState().setInputReady(false);
 
@@ -234,6 +250,7 @@ public class VM252Stepper
                             VM252Model.StoppedCategory.stopped
                             );
                     suppressProgramCounterIncrement = true;
+                    machineState().setShowContents(new String [] {"Addr " + machineState().programCounter() + ": " + "Program Stops"});
                     break;
 
             }

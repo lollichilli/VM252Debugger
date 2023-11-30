@@ -6,7 +6,7 @@ public class ButtonsController extends JPanel {
 
     private JPanel myPanel;
     private VM252Model myModel;
-    private JButton quitButton, runButton, helpButton, pauseButton, resumeButton, increaseButton, decreaseButton ;
+    private JButton runButton, helpButton, pauseButton, resumeButton, increaseButton, decreaseButton ;
 
     private JPanel getPanel() {
         return myPanel;
@@ -52,17 +52,18 @@ public class ButtonsController extends JPanel {
         textFieldba.setPreferredSize(textFieldSize);
         textFieldba.setMaximumSize(textFieldSize);
         textFieldba.setMinimumSize(textFieldSize);
+
         //
         // Create buttons
         //
 
         JButton quitButton = new JButton(quitIcon);
-        JButton runButton = new JButton(runIcon);
-        JButton helpButton = new JButton(helpIcon);
-        JButton pauseButton = new JButton("Pause");
-        JButton resumeButton = new JButton("Resume");
-        JButton increaseButton = new JButton("Increase");
-        JButton decreaseButton = new JButton("Decrease");
+        runButton = new JButton(runIcon);
+        helpButton = new JButton(helpIcon);
+        pauseButton = new JButton("Pause");
+        resumeButton = new JButton("Resume");
+        increaseButton = new JButton("Increase");
+        decreaseButton = new JButton("Decrease");
 
         runButton.setPreferredSize(new Dimension(32, 32));
         helpButton.setPreferredSize(new Dimension(32, 32));
@@ -80,12 +81,14 @@ public class ButtonsController extends JPanel {
         //
         // Set the preferred size of the icon buttons to match the button size
         //
+
         setPanel(new JPanel());
         getPanel().setLayout(new GridLayout(1, 7, 10, 0));
 
         //
         // Create a JToolBar with horizontal orientation
         //
+
         JToolBar toolbar = new JToolBar(JToolBar.HORIZONTAL);
 
         //
@@ -114,6 +117,8 @@ public class ButtonsController extends JPanel {
         // listeners
         //
 
+        increaseButton.addActionListener(new ChangeSpeedListener());
+        decreaseButton.addActionListener(new ChangeSpeedListener());
         pauseButton.addActionListener(new ChangeRunningStatus());
         resumeButton.addActionListener(new ChangeRunningStatus());
         quitButton.addActionListener(new quitListener());
@@ -148,17 +153,13 @@ public class ButtonsController extends JPanel {
 
     }
 
-
-	private class ChangeRunningStatus implements ActionListener
-    {
-        public void actionPerformed(ActionEvent event)
-        {
-            if (event.getSource() == pauseButton)
-                ButtonsController.this.getModel().setStoppedStatus(VM252Model.StoppedCategory.stopped);
-            else if (event.getSource() == resumeButton)
-                ButtonsController.this.getModel().setStoppedStatus(VM252Model.StoppedCategory.notStopped);
-            else
-                ;
+    private class ChangeRunningStatus implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            if (event.getSource() == pauseButton) {
+                getModel().setPauseStatus(true);
+            } else if (event.getSource() == resumeButton) {
+                getModel().setPauseStatus(false);
+            }
         }
     }
 
@@ -200,9 +201,31 @@ public class ButtonsController extends JPanel {
     private class quitListener implements ActionListener
     {
         @Override
+        public void actionPerformed(ActionEvent e) {
+
+            // Close current JFrame
+            ((JFrame)myPanel.getTopLevelAncestor()).dispose();
+
+            // Create a new FileChooser
+            ObjectFileChooser newFile = new ObjectFileChooser();
+
+            newFile.ObjectFileChooser();
+        }
+    }
+
+    private class ChangeSpeedListener implements ActionListener
+    {
         public void actionPerformed(ActionEvent event)
         {
-            System.exit(0); // Exit the program
+            if (event.getSource() == increaseButton)
+            {
+                int currentExecutionSpeed = getModel().getExecutionSpeed();
+                getModel().setExecutionSpeed(currentExecutionSpeed < 0 ? 0 : (currentExecutionSpeed - 500));
+            }else if (event.getSource() == decreaseButton)
+            {
+                int currentExecutionSpeed = getModel().getExecutionSpeed();
+                getModel().setExecutionSpeed(currentExecutionSpeed + 500);
+            }
         }
     }
 

@@ -15,6 +15,35 @@ public class MachineViewAndController extends JPanel implements Observer {
     private JTextField myNextInstructionTextField;
     private JTextField myInputTextField;
 
+
+    class AccumulatorView extends VM252View {
+
+        private final MachineViewAndController machineView;
+
+        public AccumulatorView(MachineViewAndController machineView) {
+            this.machineView = machineView;
+        }
+
+        @Override
+        public void updateAccumulator() {
+            machineView.getAccTextField().setText("" + machineView.getModel().accumulator());
+        }
+    }
+
+    class ProgramCounterView extends VM252View {
+
+        private final MachineViewAndController machineView;
+
+        public ProgramCounterView(MachineViewAndController machineView) {
+            this.machineView = machineView;
+        }
+
+        @Override
+        public void updateProgramCounter() {
+            machineView.getPcTextField().setText("" + machineView.getModel().programCounter());
+        }
+    }
+
     //
     // Accessors
     //
@@ -83,14 +112,15 @@ public class MachineViewAndController extends JPanel implements Observer {
     // Constructors
     //
 
-    public MachineViewAndController() {
-        this(null);
-    }
-
     public MachineViewAndController(VM252Model initialModel) {
-
         setSize(OUR_DEFAULT_FRAME_WIDTH, OUR_DEFAULT_FRAME_HEIGHT);
         setModel(initialModel);
+
+        AccumulatorView accumulatorView = new AccumulatorView(this);
+        getModel().attach(accumulatorView);
+
+        ProgramCounterView programCounterView = new ProgramCounterView(this);
+        getModel().attach(programCounterView);
 
         JLabel nextinstrLabel = new JLabel("Next Instruction", JLabel.LEFT);
         JTextField nextinstr = new JTextField("Next Instruction", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
@@ -110,6 +140,7 @@ public class MachineViewAndController extends JPanel implements Observer {
                 }
 
           }};
+
         getAccTextField().addActionListener(setAccumulator);
 
         JLabel counterLabel = new JLabel("PC");
@@ -184,6 +215,11 @@ public class MachineViewAndController extends JPanel implements Observer {
 
     @Override
     public void update() {
+        //
+        // Update to display the current status of the machine (ACC, PC, Next
+        // Instructions)
+        //
+
         getAccTextField().setText("" + getModel().accumulator());
         getPcTextField().setText("" + getModel().programCounter());
     }

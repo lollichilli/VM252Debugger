@@ -58,6 +58,7 @@ public class MainController {
     public void loadAndRun(byte[] objectCode, Scanner inputStream, PrintStream out) {
     }
 
+<<<<<<< HEAD
     //
     // Public Operations
     //
@@ -132,3 +133,6 @@ public class MainController {
     // }
 
 }
+=======
+    }
+>>>>>>> c56ea8952ece39194f26bfddbd2d4010dd607940
