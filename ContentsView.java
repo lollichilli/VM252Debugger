@@ -73,17 +73,24 @@ public class ContentsView extends JPanel implements Observer {
         setPanel(new JPanel());
 
         setContentsContainer(new JTextArea("Welcome" + "\n", 20, 20));
-        getContentsContainer().setBounds(250, 250, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        getContentsContainer().setBounds(100, 100, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
         getContentsContainer().setBackground(new Color(0, 0, 0));
         getContentsContainer().setForeground(Color.WHITE);
         getContentsContainer().setLineWrap(true);
         getContentsContainer().setEditable(false);
         contentsContainer.setPreferredSize(new Dimension(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT));
 
+        // setting the font size
+        int fontSize = 18; // Change this to your desired font size
+        contentsContainer.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
+
+        // Set the margin to increase space between text and the edge
+        contentsContainer.setMargin(new Insets(50, 50, 50, 50)); // Cha
+
         JScrollPane scroll = new JScrollPane(getContentsContainer());
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setBounds(100, 100, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
+        scroll.setBounds(50, 50, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
 
         setLayout(new BorderLayout());
         add(scroll, BorderLayout.CENTER);
@@ -108,5 +115,9 @@ public class ContentsView extends JPanel implements Observer {
             getContentsContainer().setCaretPosition(getContentsContainer().getDocument().getLength());
 
         }
+    }
+
+    public void setMargin(Insets insets) {
+        getContentsContainer().setMargin(insets);
     }
 }

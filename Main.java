@@ -114,6 +114,17 @@ class ProgramFrame extends JFrame {
         MachineViewContainer machineViewContainer = new MachineViewContainer(simulatedMachine);
         ContentsView contentsView = new ContentsView(simulatedMachine);
 
+        // Set minimum size for machineViewContainer
+        Dimension minMachineViewSize = new Dimension(200, 200);
+        machineViewContainer.setMinimumSize(minMachineViewSize);
+
+        // Set minimum size for contentsView
+        Dimension minContentsViewSize = new Dimension(400, 300);
+        contentsView.setMinimumSize(minContentsViewSize);
+
+        Dimension minbuttonsContainer = new Dimension(400, 300);
+        contentsView.setMinimumSize(minbuttonsContainer);
+
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -126,19 +137,27 @@ class ProgramFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(buttonsContainer, gbc);
 
+        Insets ExternalPadding = new Insets(50, 300, 0, 300);
+        gbc.insets = ExternalPadding;
+        gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.weighty = 0.6;
+        gbc.weighty = 1.0;
         gbc.ipadx = 200;
+        gbc.fill = GridBagConstraints.BOTH;
         add(machineViewContainer, gbc);
 
+        Insets externalPadding = new Insets(10, 400, 250, 400);
+        gbc.insets = externalPadding;
+        gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.weighty = 0.3;
+        gbc.weighty = 0.1;
+        gbc.ipady = 200;
         add(contentsView, gbc);
 
+        simulator.loadAndRun(objectCode, inputStream, System.out);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
     }
 
 }
-
