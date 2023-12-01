@@ -30,6 +30,20 @@ public class MachineViewAndController extends JPanel implements Observer {
         }
     }
 
+    class InstructionView extends VM252View {
+
+        private final MachineViewAndController machineView;
+
+        public InstructionView(MachineViewAndController machineView) {
+            this.machineView = machineView;
+        }
+
+        @Override
+        public void updateInstruction() {
+            machineView.getNextInstructionTextField().setText("" + machineView.getModel().nextInstruction());
+        }
+    }
+
     class ProgramCounterView extends VM252View {
 
         private final MachineViewAndController machineView;
@@ -68,6 +82,11 @@ public class MachineViewAndController extends JPanel implements Observer {
         return myPcTextField;
     }
 
+    private JTextField getNextInstructionTextField()
+    {
+        return myNextInstructionTextField;
+    }
+
     private JTextField getInputTextField() {
         return myInputTextField;
     }
@@ -104,6 +123,11 @@ public class MachineViewAndController extends JPanel implements Observer {
         myPcTextField = other;
     }
 
+    private void setNextInstructionTextField( JTextField other )
+    {
+        myNextInstructionTextField = other;
+    }
+
     private void setInputTextField(JTextField other) {
         myInputTextField = other;
     }
@@ -122,8 +146,8 @@ public class MachineViewAndController extends JPanel implements Observer {
         ProgramCounterView programCounterView = new ProgramCounterView(this);
         getModel().attach(programCounterView);
 
-        JLabel nextinstrLabel = new JLabel("Next Instruction", JLabel.LEFT);
-        JTextField nextinstr = new JTextField("Next Instruction", OUR_DEFAULT_COMPONENT_FIELD_AND_AREA_WIDTH);
+        InstructionView instructionView = new InstructionView(this);
+        getModel().attach(instructionView);
 
         JLabel accLabel = new JLabel("ACC");
         setAccTextField(new JTextField("" + getModel().accumulator()));
@@ -171,6 +195,10 @@ public class MachineViewAndController extends JPanel implements Observer {
         };
         getPcTextField().addActionListener(setProgramCounter);
 
+        JLabel nextInstructionLabel = new JLabel("Next Instruction", JLabel.LEFT);
+        setNextInstructionTextField(new JTextField(getModel().nextInstruction()));
+        getNextInstructionTextField().setEditable(false);
+
         JLabel inputLabel = new JLabel("Input");
         setInputTextField(new JTextField("" + getModel().getInputValue()));
         ActionListener setInputValue = new ActionListener(){
@@ -202,8 +230,8 @@ public class MachineViewAndController extends JPanel implements Observer {
         getPanel().add(getAccTextField());
         getPanel().add(counterLabel);
         getPanel().add(getPcTextField());
-        getPanel().add(nextinstrLabel);
-        getPanel().add(nextinstr);
+        getPanel().add(nextInstructionLabel);
+        getPanel().add(getNextInstructionTextField());
         getPanel().add(inputLabel);
         getPanel().add(getInputTextField());
 
@@ -222,5 +250,6 @@ public class MachineViewAndController extends JPanel implements Observer {
 
         getAccTextField().setText("" + getModel().accumulator());
         getPcTextField().setText("" + getModel().programCounter());
+        getNextInstructionTextField().setText("" + getModel().nextInstruction());
     }
 }
