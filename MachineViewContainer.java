@@ -52,7 +52,7 @@ public class MachineViewContainer extends JPanel {
         // Add panels to container
         //
 
-        statusView.setBounds(0, 0, 700, 400);
+        statusView.setBounds(0, 0, 700, 300);
         getPanel().add(statusView);
 
         memoryView.setBounds(400, 20, 700, 300);

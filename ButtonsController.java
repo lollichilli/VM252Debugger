@@ -7,6 +7,7 @@ public class ButtonsController extends JPanel {
     private JPanel myPanel;
     private VM252Model myModel;
     private JButton runButton, helpButton, pauseButton, resumeButton, increaseButton, decreaseButton ;
+    private JTextField textFieldba;
 
     private JPanel getPanel() {
         return myPanel;
@@ -47,7 +48,7 @@ public class ButtonsController extends JPanel {
         // Create labels
         //
 
-        JTextField textFieldba = new JTextField("", 20);
+        textFieldba = new JTextField("", 20);
         Dimension textFieldSize = new Dimension(300, 30);
         textFieldba.setPreferredSize(textFieldSize);
         textFieldba.setMaximumSize(textFieldSize);
@@ -122,6 +123,7 @@ public class ButtonsController extends JPanel {
         pauseButton.addActionListener(new ChangeRunningStatus());
         resumeButton.addActionListener(new ChangeRunningStatus());
         quitButton.addActionListener(new quitListener());
+        textFieldba.addActionListener(new SetBreakpointListener());
 
         helpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -157,8 +159,10 @@ public class ButtonsController extends JPanel {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == pauseButton) {
                 getModel().setPauseStatus(true);
+                getModel().setShowContents(new String [] {"Pause"});
             } else if (event.getSource() == resumeButton) {
                 getModel().setPauseStatus(false);
+                getModel().setShowContents(new String [] {"Resume"});
             }
         }
     }
@@ -225,6 +229,25 @@ public class ButtonsController extends JPanel {
             {
                 int currentExecutionSpeed = getModel().getExecutionSpeed();
                 getModel().setExecutionSpeed(currentExecutionSpeed + 500);
+            }
+        }
+    }
+
+    private class SetBreakpointListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            try {
+                short breakPointPosition = Short.valueOf(textFieldba.getText());
+    
+                if (breakPointPosition >= 0 && breakPointPosition <= 8191) {
+                    getModel().setBreakPoint(breakPointPosition);
+                    getModel().setShowContents(new String[]{"Breakpoint set at address " + breakPointPosition});
+                } else {
+                    getModel().setShowContents(new String[]{"Invalid address: " + breakPointPosition});
+                }
+            } catch (NumberFormatException err) {
+                getModel().setShowContents(new String[]{"Not a valid input. Breakpoint value must be a number"});
+            } finally {
+                getModel().resetDisplayContents();
             }
         }
     }
