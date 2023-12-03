@@ -41,6 +41,8 @@ public class VM252View extends SimpleObserver implements VM252Observer
 
         updateProgramCounter();
 
+        updateInstruction();
+
         for (int address = 0;
                 address < VM252ArchitectureSpecifications.MEMORY_SIZE_IN_BYTES;
                 ++ address)
@@ -56,6 +58,12 @@ public class VM252View extends SimpleObserver implements VM252Observer
 
     @Override
     public void updateProgramCounter()
+    {
+
+    }
+
+    @Override
+    public void updateInstruction()
     {
 
     }

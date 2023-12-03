@@ -22,6 +22,8 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
     private boolean myPauseStatus;
     private String [] myContents;
     private VM252Stepper stepper;
+    private String myNextInstruction;
+
 
     //
     // Public Accessors
@@ -40,6 +42,12 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         return myProgramCounter;
 
     }
+
+    public String nextInstruction()
+    {
+        return myNextInstruction;
+    }
+
 
     public byte memoryByte(int address) throws IllegalArgumentException
     {
@@ -90,6 +98,7 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         return myPauseStatus;
     }
 
+
     public String [] getShowContents()
     {
         return myContents;
@@ -126,6 +135,12 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
 
         };
 
+    }
+
+    public void setNextInstruction(String other)
+    {
+        myNextInstruction = other;
+        announcInstructionChange();
     }
 
     public void setMemoryByte(int address, byte other) throws IllegalArgumentException
@@ -196,23 +211,32 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         myContents = contents;
     }
 
+
+
+
+
     //
     // Public Ctors
 
     public VM252Model(byte[] objectCode)
     {
+        Instruction currentInstruction;
         String [] welcomeContents = {"Welcome to VM252Debuger"};
 
         for (int address = 0; address < objectCode.length; ++ address)
         {
             setMemoryByte(address, objectCode[ address ]);
         }
+        // currentInstruction
+        //             = new VM252ArchitectureSpecifications.Instruction(
+        //                     fetchMemoryBytes(programCounter(), 2));
         setAccumulator(0);
         setProgramCounter(0);
         setShowContents(welcomeContents);
         setExecutionSpeed(500);
         setBreakPoint((short)8192);
         setPauseStatus(false);
+        setNextInstruction("");
         setStoppedStatus(StoppedCategory.notStopped);
         stepper = new VM252Stepper(this);
     }
@@ -242,6 +266,17 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
     }
 
     @Override
+    public void announcInstructionChange()
+    {
+
+        for (Observer currentObserver : observers())
+
+            if (currentObserver instanceof VM252Observer)
+                ((VM252Observer) currentObserver).updateInstruction();
+
+    }
+
+    @Override
     public void announceProgramCounterChange()
     {
 
@@ -251,6 +286,8 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
                 ((VM252Observer) currentObserver).updateProgramCounter();
 
     }
+
+
 
     @Override
     public void announceMemoryChange(int changeAddress)

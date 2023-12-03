@@ -12,6 +12,8 @@ public interface VM252Observer extends Observer
         // has changed state
         //
 
+    void updateInstruction();
+
     void updateMemory(int changeAddress);
         //
         // Tell this object that the subject it's observing's memory byte at

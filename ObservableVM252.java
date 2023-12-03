@@ -11,6 +11,8 @@ interface ObservableVM252 extends Observable
     // Announce to all observers that this object's program counter has changed
     //
 
+    void announcInstructionChange();
+
     void announceMemoryChange(int addressOfChangedByte);
     //
     // Announce to all observers that the cintents of this object's memory cell at
