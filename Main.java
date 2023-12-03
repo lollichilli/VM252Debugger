@@ -81,8 +81,8 @@ class ProgramFrame extends JFrame {
 
     private static final int OUR_DEFAULT_WIDTH = 1920;
     private static final int OUR_DEFAULT_HEIGHT = 1080;
-    private static final int MINIMUM_WIDTH = 1500;
-    private static final int MINIMUM_HEIGHT = 700;
+    private static final int MINIMUM_WIDTH = 1400;
+    private static final int MINIMUM_HEIGHT = 900;
 
     private JPanel myPanel;
 
@@ -139,7 +139,7 @@ class ProgramFrame extends JFrame {
         layoutConstraints.gridy = 2;
         layoutConstraints.weighty = 0.3;
         layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
-        layoutConstraints.ipady = 50;
+        layoutConstraints.ipady = 400;
         layoutConstraints.insets = new Insets(5, 300, 70, 300);
         mainPanel.add(contentsView, layoutConstraints);
 
@@ -151,21 +151,6 @@ class ProgramFrame extends JFrame {
 
         // Set the minimum size for the frame
         setMinimumSize(new Dimension(MINIMUM_WIDTH, MINIMUM_HEIGHT));
-
-        // Add a component listener to handle resizing
-        addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                // Handle resizing here
-                // Example: Adjusting sizes of components dynamically
-                Component component = (Component) e.getSource();
-                int width = component.getWidth();
-                int height = component.getHeight();
-
-                // Example: Adjusting the size of the mainPanel when the frame resizes
-                mainPanel.setPreferredSize(new Dimension(width, height));
-                revalidate(); // Revalidate the layout
-            }
-        });
 
         setVisible(true);
     }
