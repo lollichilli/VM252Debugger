@@ -15,7 +15,6 @@ public class MachineViewAndController extends JPanel implements Observer {
     private JTextField myNextInstructionTextField;
     private JTextField myInputTextField;
 
-
     class AccumulatorView extends VM252View {
 
         private final MachineViewAndController machineView;
@@ -151,19 +150,20 @@ public class MachineViewAndController extends JPanel implements Observer {
 
         JLabel accLabel = new JLabel("ACC");
         setAccTextField(new JTextField("" + getModel().accumulator()));
-        ActionListener setAccumulator = new ActionListener(){
-	        public void actionPerformed(ActionEvent accChange){
-                try
-                {
+        ActionListener setAccumulator = new ActionListener() {
+            public void actionPerformed(ActionEvent accChange) {
+                try {
                     getModel().resetDisplayContents();
                     getModel().setAccumulator(Short.valueOf(getAccTextField().getText()));
-                    getModel().setShowContents(new String[] {"Set ACC value to " + getAccTextField().getText()});
-                }catch(NumberFormatException err){
-                    getModel().setShowContents(new String [] {"Not a valid input. Input for ACC Value must be a number"});
+                    getModel().setShowContents(new String[] { "Set ACC value to " + getAccTextField().getText() });
+                } catch (NumberFormatException err) {
+                    getModel().setShowContents(
+                            new String[] { "Not a valid input. Input for ACC Value must be a number" });
                     getModel().resetDisplayContents();
                 }
 
-          }};
+            }
+        };
 
         getAccTextField().addActionListener(setAccumulator);
 
@@ -173,24 +173,24 @@ public class MachineViewAndController extends JPanel implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 getModel().resetDisplayContents();
-                try{
-                    if (Short.valueOf(getPcTextField().getText()) >= ((short)8192) || Short.valueOf(getPcTextField().getText()) < ((short) 0))
-                    {
-                        getModel().setShowContents(new String[] {"No address " + getPcTextField().getText()});
+                try {
+                    if (Short.valueOf(getPcTextField().getText()) >= ((short) 8192)
+                            || Short.valueOf(getPcTextField().getText()) < ((short) 0)) {
+                        getModel().setShowContents(new String[] { "No address " + getPcTextField().getText() });
                         getModel().resetDisplayContents();
                         getModel().setProgramCounter(getModel().programCounter());
-                    } else
-                    {
+                    } else {
                         getModel().setProgramCounter(Short.valueOf(getPcTextField().getText()));
                         getModel().setStoppedStatus(VM252Model.StoppedCategory.notStopped);
-                        getModel().setShowContents(new String[] {"Set PC value to " + getPcTextField().getText()});
+                        getModel().setShowContents(new String[] { "Set PC value to " + getPcTextField().getText() });
                         getModel().resetDisplayContents();
                         // show next instruction here
                     }
-                } catch(NumberFormatException err){
-                        getModel().setShowContents(new String [] {"Not a valid input. Input for PC Value must be a number"});
-                        getModel().resetDisplayContents();
-                    }
+                } catch (NumberFormatException err) {
+                    getModel()
+                            .setShowContents(new String[] { "Not a valid input. Input for PC Value must be a number" });
+                    getModel().resetDisplayContents();
+                }
             }
         };
         getPcTextField().addActionListener(setProgramCounter);
@@ -201,18 +201,19 @@ public class MachineViewAndController extends JPanel implements Observer {
 
         JLabel inputLabel = new JLabel("Input");
         setInputTextField(new JTextField("" + getModel().getInputValue()));
-        ActionListener setInputValue = new ActionListener(){
-	        public void actionPerformed(ActionEvent inputChange){
+        ActionListener setInputValue = new ActionListener() {
+            public void actionPerformed(ActionEvent inputChange) {
                 getModel().resetDisplayContents();
-                try{
+                try {
                     getModel().setInputValue(Short.valueOf(getInputTextField().getText()));
                     getModel().setInputReady(true);
-                }catch(NumberFormatException err){
-                    getModel().setShowContents(new String [] {"Bad integer value; try again"});
+                } catch (NumberFormatException err) {
+                    getModel().setShowContents(new String[] { "Bad integer value; try again" });
                     getModel().resetDisplayContents();
                 }
 
-          }};
+            }
+        };
         getInputTextField().addActionListener(setInputValue);
 
         //
