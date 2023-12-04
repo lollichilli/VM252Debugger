@@ -111,8 +111,8 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
 
                 }
 
-            rowAddr = rowAddr + 20;
             }
+            rowAddr = rowAddr + 20;
         }
 
         // for (int row = 0; row < rowCount; row++) {
