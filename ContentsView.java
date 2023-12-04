@@ -75,13 +75,13 @@ public class ContentsView extends JPanel implements Observer {
         setContentsContainer(new JTextArea("Welcome" + "\n", 20, 20));
         getContentsContainer().setBounds(100, 100, OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT);
         getContentsContainer().setBackground(new Color(0, 0, 0));
-        getContentsContainer().setForeground(Color.WHITE);
+        getContentsContainer().setForeground(Color.GREEN);
         getContentsContainer().setLineWrap(true);
         getContentsContainer().setEditable(false);
         contentsContainer.setPreferredSize(new Dimension(OUR_DEFAULT_WIDTH, OUR_DEFAULT_HEIGHT));
 
         // setting the font size
-        int fontSize = 18; // Change this to your desired font size
+        int fontSize = 18;
         contentsContainer.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
 
         // Set the margin to increase space between text and the edge

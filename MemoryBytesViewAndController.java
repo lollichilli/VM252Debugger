@@ -88,9 +88,10 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
                 "15", "16", "17", "18", "19"
         };
 
-        for (int header=0; header < 21; ++header){
+        for (int header = 0; header < 21; ++header) {
             myTable.getColumnModel().getColumn(header).setHeaderValue(colHeaders[header]);
-        };
+        }
+        ;
 
         myTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -98,12 +99,12 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
 
         for (int row = 0; row < rowCount; ++row) {
             myTable.setValueAt("Addr " + rowAddr, row, 0);
-            for(int col = 1; col < 21; ++col) {
-                if(memoryValueIndex != 8192) {
-                    int byteToInt  = (int) getModel().memoryByte(memoryValueIndex) & 0xff;
+            for (int col = 1; col < 21; ++col) {
+                if (memoryValueIndex != 8192) {
+                    int byteToInt = (int) getModel().memoryByte(memoryValueIndex) & 0xff;
                     String hexValue = Integer.toHexString(byteToInt);
 
-                    if( hexValue.length() % 2 == 1){
+                    if (hexValue.length() % 2 == 1) {
                         hexValue = "0" + hexValue;
                     }
                     myTable.setValueAt(hexValue, row, col);
@@ -111,38 +112,37 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
 
                 }
 
-            }
             rowAddr = rowAddr + 20;
+            }
         }
 
         // for (int row = 0; row < rowCount; row++) {
-        //     for (int column = 1; column <= columnCount; column++) {
-        //         myTable.setValueAt("00", row, column);
-        //     }
+        // for (int column = 1; column <= columnCount; column++) {
+        // myTable.setValueAt("00", row, column);
+        // }
         // }
 
         JScrollPane scrollPane = new JScrollPane(myTable);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(400, 150));
+        scrollPane.setPreferredSize(new Dimension(400, 200));
 
         add(scrollPane, BorderLayout.CENTER);
         add(getPanel());
 
-        myTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        myTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 int changedRow = myTable.getSelectedRow();
                 int changedColumn = myTable.getSelectedColumn();
 
-                if (changedColumn != 0){
+                if (changedColumn != 0) {
                     String hexValue = myTable.getValueAt(changedRow, changedColumn).toString();
 
                     int hexToInt = Integer.parseInt(hexValue, 16);
                     int byteIndexToChange = changedRow * 20 + changedColumn;
                     byte intToByte = (byte) hexToInt;
                     getModel().setMemoryByte(byteIndexToChange, intToByte);
-                }
-                else{
+                } else {
                     int rowAddr = changedRow * 20;
                     myTable.setValueAt("Addr " + rowAddr, changedRow, changedColumn);
                 }
@@ -156,12 +156,12 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
         int memoryValueIndex = 0;
 
         for (int row = 0; row < 410; ++row) {
-            for(int col = 1; col < 21; ++col) {
-                if(memoryValueIndex != 8192) {
-                    int byteToInt  = (int) getModel().memoryByte(memoryValueIndex) & 0xff;
+            for (int col = 1; col < 21; ++col) {
+                if (memoryValueIndex != 8192) {
+                    int byteToInt = (int) getModel().memoryByte(memoryValueIndex) & 0xff;
                     String hexValue = Integer.toHexString(byteToInt);
 
-                    if( hexValue.length() % 2 == 1){
+                    if (hexValue.length() % 2 == 1) {
                         hexValue = "0" + hexValue;
                     }
                     myTable.setValueAt(hexValue, row, col);

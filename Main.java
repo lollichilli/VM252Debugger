@@ -81,6 +81,8 @@ class ProgramFrame extends JFrame {
 
     private static final int OUR_DEFAULT_WIDTH = 1920;
     private static final int OUR_DEFAULT_HEIGHT = 1080;
+    private static final int MINIMUM_WIDTH = 1400;
+    private static final int MINIMUM_HEIGHT = 900;
 
     private JPanel myPanel;
 
@@ -114,52 +116,45 @@ class ProgramFrame extends JFrame {
         MachineViewContainer machineViewContainer = new MachineViewContainer(simulatedMachine);
         ContentsView contentsView = new ContentsView(simulatedMachine);
 
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new BorderLayout());
-
-        // Set minimum size for machineViewContainer
-        Dimension minMachineViewSize = new Dimension(200, 200);
-        machineViewContainer.setMinimumSize(minMachineViewSize);
-
-        // Set minimum size for contentsView
-        Dimension minContentsViewSize = new Dimension(400, 300);
-        contentsView.setMinimumSize(minContentsViewSize);
-
-        Dimension minbuttonsContainer = new Dimension(400, 300);
-        contentsView.setMinimumSize(minbuttonsContainer);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridBagLayout());
 
         setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints layoutConstraints = new GridBagConstraints();
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 0.1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(buttonsContainer, gbc);
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 0;
+        layoutConstraints.weightx = 1.0;
+        layoutConstraints.weighty = 0.1;
+        layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
+        mainPanel.add(buttonsContainer, layoutConstraints);
 
-        Insets ExternalPadding = new Insets(50, 300, 0, 300);
-        gbc.insets = ExternalPadding;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.weighty = 1.0;
-        gbc.ipadx = 200;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(machineViewContainer, gbc);
+        layoutConstraints.gridy = 1;
+        layoutConstraints.weighty = 0.6;
+        layoutConstraints.fill = GridBagConstraints.BOTH;
+        layoutConstraints.ipady = 50;
+        layoutConstraints.insets = new Insets(25, 50, 2, 50);
+        mainPanel.add(machineViewContainer, layoutConstraints);
 
-        Insets externalPadding = new Insets(10, 400, 150, 400);
-        gbc.insets = externalPadding;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weighty = 0.1;
-        gbc.ipady = 200;
-        add(contentsView, gbc);
+        layoutConstraints.gridy = 2;
+        layoutConstraints.weighty = 0.3;
+        layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
+        layoutConstraints.ipady = 400;
+        layoutConstraints.insets = new Insets(5, 300, 70, 300);
+        mainPanel.add(contentsView, layoutConstraints);
+
+        setLayout(new BorderLayout());
+        add(mainPanel, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        setResizable(true); // Allow resizing of MainPanel
 
+        // Set the minimum size for the frame
+        setMinimumSize(new Dimension(MINIMUM_WIDTH, MINIMUM_HEIGHT));
+
+        setVisible(true);
     }
 
+    public static void main(String[] args) {
+    }
 }
