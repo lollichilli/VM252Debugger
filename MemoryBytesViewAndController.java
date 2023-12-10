@@ -117,12 +117,6 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
             rowAddr = rowAddr + 20;
         }
 
-        // for (int row = 0; row < rowCount; row++) {
-        // for (int column = 1; column <= columnCount; column++) {
-        // myTable.setValueAt("00", row, column);
-        // }
-        // }
-
         JScrollPane scrollPane = new JScrollPane(myTable);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -131,22 +125,43 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
         add(scrollPane, BorderLayout.CENTER);
         add(getPanel());
 
-        myTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
+        // When a cell is edited, the table will get updated and generate a message indicating the change in the table
+
+        myTable.addFocusListener( new FocusListener(){
+            public void focusGained(FocusEvent e) {
                 int changedRow = myTable.getSelectedRow();
                 int changedColumn = myTable.getSelectedColumn();
+                int byteIndex = changedRow * 20 + changedColumn - 1;
 
-                if (changedColumn != 0) {
+                if (changedColumn != 0 ) {
                     String hexValue = myTable.getValueAt(changedRow, changedColumn).toString();
-
                     int hexToInt = Integer.parseInt(hexValue, 16);
-                    int byteIndexToChange = changedRow * 20 + changedColumn;
                     byte intToByte = (byte) hexToInt;
-                    getModel().setMemoryByte(byteIndexToChange, intToByte);
-                } else {
+
+                    if (intToByte != getModel().memoryByte(byteIndex)) {
+                        int byteToInt  = (int) getModel().memoryByte(byteIndex) & 0xff;
+                        String originalByteHexValue = Integer.toHexString(byteToInt);
+
+                        if( originalByteHexValue.length() % 2 == 1) {
+                            originalByteHexValue = "0" + originalByteHexValue;
+                        }
+                        String [] memoryValueChanged = {
+                            "Addr " + byteIndex + ": changed from " + originalByteHexValue + " to " + hexValue
+                        };
+                        getModel().setShowContents(memoryValueChanged);
+                        getModel().resetDisplayContents();
+                        getModel().setMemoryByte(byteIndex, intToByte);
+                    }
+                }
+
+                else{
                     int rowAddr = changedRow * 20;
                     myTable.setValueAt("Addr " + rowAddr, changedRow, changedColumn);
-                }
+                    }
+            }
+             public void focusLost(FocusEvent e) {
+                 // Do nothing
+                ;
             }
         });
 
@@ -161,7 +176,6 @@ public class MemoryBytesViewAndController extends JPanel implements Observer {
                 if (memoryValueIndex != 8192) {
                     int byteToInt = (int) getModel().memoryByte(memoryValueIndex) & 0xff;
                     String hexValue = Integer.toHexString(byteToInt);
-
                     if (hexValue.length() % 2 == 1) {
                         hexValue = "0" + hexValue;
                     }
