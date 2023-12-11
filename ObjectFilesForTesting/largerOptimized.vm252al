@@ -1,0 +1,21 @@
+    JUMP  main
+a:
+    DATA  0
+b:
+    DATA 0
+larger:
+    DATA  0
+main:
+    INPUT
+    STORE  a
+    INPUT
+    STORE  b
+    SUB  a
+    JUMPP  else
+    LOAD  a
+    JUMP  endif
+else:
+    LOAD  b
+endif:
+    OUTPUT
+    STOP

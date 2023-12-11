@@ -227,9 +227,7 @@ public class VM252Model extends SimpleObservable implements ObservableVM252
         {
             setMemoryByte(address, objectCode[ address ]);
         }
-        // currentInstruction
-        //             = new VM252ArchitectureSpecifications.Instruction(
-        //                     fetchMemoryBytes(programCounter(), 2));
+
         setAccumulator(0);
         setProgramCounter(0);
         setShowContents(welcomeContents);
