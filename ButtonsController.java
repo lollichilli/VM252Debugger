@@ -205,15 +205,9 @@ public class ButtonsController extends JPanel {
     private class quitListener implements ActionListener
     {
         @Override
-        public void actionPerformed(ActionEvent e) {
-
-            // Close current JFrame
-            ((JFrame)myPanel.getTopLevelAncestor()).dispose();
-
-            // Create a new FileChooser
-            ObjectFileChooser newFile = new ObjectFileChooser();
-
-            newFile.ObjectFileChooser();
+        public void actionPerformed(ActionEvent event)
+        {
+            System.exit(0); // Exit the program
         }
     }
 
