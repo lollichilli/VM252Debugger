@@ -28,11 +28,10 @@ To compile and run the VM252 Debugger, follow these steps:
     ```
     java Main
     ```
-
 ## App Demo
 For a detailed demonstration of the VM252 Debugger, check out the demo video below:
 
-[App Demo Video](#)  <!-- Replace # with your video link -->
+[App Demo Video](https://imgur.com/qJdKyBf)
 
 ## Family Tree Diagram
 The following is an example family tree diagram of the components used in this project. Please replace the link with your own diagram image.
