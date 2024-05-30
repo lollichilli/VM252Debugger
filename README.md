@@ -37,7 +37,7 @@ For a detailed demonstration of the VM252 Debugger, check out the demo video bel
 ## Family Tree Diagram
 The following is an example family tree diagram of the components used in this project. Please replace the link with your own diagram image.
 
-![Family Tree Diagram](#)  <!-- Replace # with your image link -->
+![Family Tree Diagram](<img src="https://imgur.com/s5yU26S" alt="Family Tree Diagram" width="600">)
 
 ## Components
 Here are some key components of the VM252 Debugger:
