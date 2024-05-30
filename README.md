@@ -31,7 +31,6 @@ To compile and run the VM252 Debugger, follow these steps:
 ## App Demo
 For a detailed demonstration of the VM252 Debugger, check out the demo video below:
 
-[App Demo Video](https://imgur.com/qJdKyBf)
 <img src='demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
